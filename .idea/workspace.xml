@@ -4,29 +4,17 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="cfd0ce99-2f6e-41ba-9ff7-fa2da55a18b5" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/codeStyles/Project.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/codeStyles/codeStyleConfig.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/gradle.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/accounts.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/build.gradle.kts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/gradle.properties" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/gradle/wrapper/gradle-wrapper.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/gradle/wrapper/gradle-wrapper.properties" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/gradlew" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/gradlew.bat" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/settings.gradle.kts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/kotlin/BankingTracker.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/kotlin/FinanceTracker.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/kotlin/Main.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/kotlin/Transaction.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/kotlin/TransactionType.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/kotlin/org/example/BankAccount.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/transactions.csv" afterDir="false" />
+    <list default="true" id="cfd0ce99-2f6e-41ba-9ff7-fa2da55a18b5" name="Changes" comment="Personal Finance Tracker">
+      <change afterPath="$PROJECT_DIR$/.idea/dataSources.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/sqldialects.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/kotlin/DBConnector.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/kotlin/DatabaseHelper.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build.gradle.kts" beforeDir="false" afterPath="$PROJECT_DIR$/build.gradle.kts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/BankingTracker.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/BankingTracker.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/FinanceTracker.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/FinanceTracker.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/Main.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/Main.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/org/example/BankAccount.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/org/example/BankAccount.kt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -64,10 +52,14 @@
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
     "ASKED_ADD_EXTERNAL_FILES": "true",
+    "Downloaded.Files.Path.Enabled": "false",
     "Gradle.Build PersonalFinanceTracker.executor": "Run",
     "Gradle.PersonalFinanceTracker [:MainKt.main()].executor": "Run",
     "JAR Application.Unnamed.executor": "Run",
     "Kotlin.MainKt.executor": "Run",
+    "Repository.Attach.Annotations": "false",
+    "Repository.Attach.JavaDocs": "false",
+    "Repository.Attach.Sources": "false",
     "RunOnceActivity.CodyAccountHistoryMigration": "true",
     "RunOnceActivity.CodyAccountsIdsRefresh": "true",
     "RunOnceActivity.CodyAssignOrphanedChatsToActiveAccount": "true",
@@ -78,7 +70,9 @@
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "RunOnceActivity.ToggleCodyToolWindowAfterMigration": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
     "Shell Script.Build Jar.executor": "Run",
+    "android.gradle.sync.needed": "true",
     "dart.analysis.tool.window.visible": "false",
     "git-widget-placeholder": "master",
     "kotlin-language-version-configured": "true",
@@ -89,12 +83,17 @@
     "node.js.selected.package.tslint": "(autodetect)",
     "nodejs_package_manager_path": "npm",
     "onboarding.tips.debug.path": "D:/Admin/Documents/Idea Projects/PersonalFinanceTracker/src/main/kotlin/Main.kt",
-    "project.structure.last.edited": "Project",
+    "project.structure.last.edited": "Libraries",
     "project.structure.proportion": "0.15",
     "project.structure.side.proportion": "0.2",
     "settings.editor.selected.configurable": "reference.settingsdialog.project.gradle",
     "show.migrate.to.gradle.popup": "false",
     "vue.rearranger.settings.migration": "true"
+  },
+  "keyToStringList": {
+    "DatabaseDriversLRU": [
+      "mysql"
+    ]
   }
 }]]></component>
   <component name="RecentsManager">
@@ -146,6 +145,13 @@
       <item itemvalue="Shell Script.Build Jar" />
     </list>
   </component>
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="jdk-22-openjdk-22-3183f394aec4-bad0321e" />
+      </set>
+    </attachedChunks>
+  </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="StandaloneScriptsStorage">
     <option name="files">
@@ -162,8 +168,17 @@
       <option name="presentableId" value="Default" />
       <updated>1738067903747</updated>
       <workItem from="1738067904734" duration="2641000" />
-      <workItem from="1738070629451" duration="10703000" />
+      <workItem from="1738070629451" duration="15107000" />
     </task>
+    <task id="LOCAL-00001" summary="Personal Finance Tracker">
+      <option name="closed" value="true" />
+      <created>1738081544275</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1738081544275</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -171,5 +186,7 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
+    <MESSAGE value="Personal Finance Tracker" />
+    <option name="LAST_COMMIT_MESSAGE" value="Personal Finance Tracker" />
   </component>
 </project>

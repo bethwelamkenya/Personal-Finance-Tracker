@@ -5,10 +5,9 @@ import kotlin.system.exitProcess
 fun main() {
     val tracker = FinanceTracker()
     val bankingTracker = BankingTracker()
-    bankingTracker.loadAccounts()
-    tracker.loadTransactions()
+    val dbConnector = DBConnector()
     println("Personal Finance Tracker")
-    bankingMenu(tracker, bankingTracker);
+    bankingMenu(tracker, bankingTracker, dbConnector)
 }
 
 fun printBankingMenu() {
@@ -22,33 +21,30 @@ fun printBankingMenu() {
     println("Enter your choice:")
 }
 
-fun bankingMenu(tracker: FinanceTracker, bankingTracker: BankingTracker) {
+fun bankingMenu(tracker: FinanceTracker, bankingTracker: BankingTracker, dbConnector: DBConnector) {
     while (true) {
         printBankingMenu()
         val choice = readlnOrNull()?.toIntOrNull()
         when (choice) {
-            1 -> logInAccount(bankingTracker)
+            1 -> logInAccount(bankingTracker, dbConnector)
             2 -> viewAccount(bankingTracker)
-            3 -> enterTrackerMenu(tracker, bankingTracker)
+            3 -> enterTrackerMenu(tracker, bankingTracker, dbConnector)
             4 -> logOut(bankingTracker)
-            5 -> addBankAccount(bankingTracker)
-            6 -> {
-                bankingTracker.saveAccounts()
-                exitProcess(0)
-            }
+            5 -> addBankAccount(bankingTracker, dbConnector)
+            6 -> exitProcess(0)
 
             else -> println("Invalid choice. Please try again.")
         }
     }
 }
 
-fun logInAccount(bankingTracker: BankingTracker) {
+fun logInAccount(bankingTracker: BankingTracker, dbConnector: DBConnector) {
     print("Enter your account number: ")
     val accountNumber = readlnOrNull()
     print("Enter your PIN: ")
     val pin = readlnOrNull()
     if (accountNumber != null && pin != null) {
-        if (bankingTracker.logIn(accountNumber, pin)) {
+        if (bankingTracker.logIn(accountNumber, pin, dbConnector)) {
             println("Login successful.")
         } else {
             println("Invalid account number or PIN.")
@@ -62,7 +58,7 @@ fun viewAccount(bankingTracker: BankingTracker) {
     bankingTracker.viewAccount()
 }
 
-fun addBankAccount(bankingTracker: BankingTracker) {
+fun addBankAccount(bankingTracker: BankingTracker, dbConnector: DBConnector) {
     print("Enter account number: ")
     val accountNumber = readlnOrNull()
     print("Enter account holder: ")
@@ -72,19 +68,19 @@ fun addBankAccount(bankingTracker: BankingTracker) {
     print("Enter PIN: ")
     val pin = readlnOrNull()
     if (accountNumber != null && accountHolder != null && bankName != null && pin != null) {
-        bankingTracker.createAccount(accountNumber, accountHolder, bankName, pin)
+        bankingTracker.createAccount(accountNumber, accountHolder, bankName, pin, dbConnector)
         println("Bank account added successfully.")
     } else {
         println("Invalid input. Bank account not added.")
     }
 }
 
-fun enterTrackerMenu(tracker: FinanceTracker, bankingTracker: BankingTracker) {
+fun enterTrackerMenu(tracker: FinanceTracker, bankingTracker: BankingTracker, dbConnector: DBConnector) {
     if (bankingTracker.getActiveAccount() == null) {
         println("No active account. Please log in first.")
         return
     } else {
-        trackerMenu(tracker, bankingTracker)
+        trackerMenu(tracker, bankingTracker, dbConnector)
     }
 }
 
@@ -102,48 +98,48 @@ fun printTrackerMenu() {
     println("Enter your choice:")
 }
 
-fun trackerMenu(tracker: FinanceTracker, bankingTracker: BankingTracker) {
+fun trackerMenu(tracker: FinanceTracker, bankingTracker: BankingTracker, dbConnector: DBConnector) {
     var run = true
     while (run) {
         printTrackerMenu()
         val choice = readlnOrNull()?.toIntOrNull()
         when (choice) {
-            1 -> deposit(tracker, bankingTracker)
-            2 -> withdraw(tracker, bankingTracker)
-            3 -> viewTransactions(tracker, bankingTracker)
+            1 -> deposit(tracker, bankingTracker, dbConnector)
+            2 -> withdraw(tracker, bankingTracker, dbConnector)
+            3 -> viewTransactions(tracker, bankingTracker, dbConnector)
             4 -> run = false
             else -> println("Invalid choice. Please try again.")
         }
     }
 }
 
-fun deposit(tracker: FinanceTracker, bankingTracker: BankingTracker) {
+fun deposit(tracker: FinanceTracker, bankingTracker: BankingTracker, dbConnector: DBConnector) {
     print("Enter the amount to deposit: ")
     val amount = readlnOrNull()?.toDoubleOrNull()
     print("Description: ")
     val description = readlnOrNull()
     if (amount != null) {
-        bankingTracker.deposit(amount, description, tracker)
+        bankingTracker.deposit(amount, description, tracker, dbConnector)
     } else {
         println("Invalid amount. Deposit failed.")
     }
 }
 
-fun withdraw(tracker: FinanceTracker, bankingTracker: BankingTracker) {
+fun withdraw(tracker: FinanceTracker, bankingTracker: BankingTracker, dbConnector: DBConnector) {
     print("Enter the amount to withdraw: ")
     val amount = readlnOrNull()?.toDoubleOrNull()
     print("Description: ")
     val description = readlnOrNull()
     if (amount != null) {
-        bankingTracker.withdraw(amount, description, tracker)
+        bankingTracker.withdraw(amount, description, tracker, dbConnector)
     } else {
         println("Invalid amount. Withdrawal failed.")
     }
 }
 
-fun viewTransactions(tracker: FinanceTracker, bankingTracker: BankingTracker) {
+fun viewTransactions(tracker: FinanceTracker, bankingTracker: BankingTracker, dbConnector: DBConnector) {
     println("\n=== Transactions ===")
-    bankingTracker.getActiveAccount()?.let { tracker.viewTransactionsByAccount(it.getAccountNumber()) }
+    bankingTracker.getActiveAccount()?.let { tracker.getTransactionsForAccount(it.getAccountNumber(), dbConnector) }
 
     println("\n=== Balance ===") //
     println("\nCurrent Balance: $${bankingTracker.getActiveAccount()?.getBalance()}")

@@ -12,6 +12,8 @@ repositories {
 
 dependencies {
     testImplementation("org.jetbrains.kotlin:kotlin-test")
+    implementation("mysql:mysql-connector-java:8.0.30")
+
 }
 
 tasks.test {

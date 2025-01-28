@@ -9,33 +9,15 @@ class BankAccount {
     private var bankName: String = ""
     private var pin: String = ""
 
-    fun deposit(amount: Double, description: String?, tracker: FinanceTracker) {
+    fun deposit(amount: Double, description: String?, tracker: FinanceTracker, dbConnector: DBConnector) {
         balance += amount
-        tracker.addTransaction(accountNumber, LocalDate.now(), TransactionType.Deposit, description, amount)
-        tracker.saveTransaction(
-            Transaction(
-                accountNumber,
-                LocalDate.now(),
-                TransactionType.Deposit,
-                description,
-                amount
-            )
-        )
+        tracker.addTransaction(accountNumber, LocalDate.now(), TransactionType.Deposit, description, amount, dbConnector)
     }
 
-    fun withdraw(amount: Double, description: String?, tracker: FinanceTracker) {
+    fun withdraw(amount: Double, description: String?, tracker: FinanceTracker, dbConnector: DBConnector) {
         if (balance >= amount) {
             balance -= amount
-            tracker.addTransaction(accountNumber, LocalDate.now(), TransactionType.Withdrawal, description, amount)
-            tracker.saveTransaction(
-                Transaction(
-                    accountNumber,
-                    LocalDate.now(),
-                    TransactionType.Withdrawal,
-                    description,
-                    amount
-                )
-            )
+            tracker.addTransaction(accountNumber, LocalDate.now(), TransactionType.Withdrawal, description, amount, dbConnector)
         } else {
             println("Insufficient funds.")
         }
@@ -75,6 +57,10 @@ class BankAccount {
 
     fun setPin(pin: String) {
         this.pin = pin
+    }
+
+    fun setBalance(balance: Double){
+        this.balance = balance
     }
 
 
