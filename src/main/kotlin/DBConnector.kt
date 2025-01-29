@@ -1,7 +1,5 @@
 package org.example
 
-import java.sql.DriverManager
-
 class DBConnector {
     fun addBankAccount(account: BankAccount) {
         val sql =
