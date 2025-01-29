@@ -51,7 +51,7 @@ fun bankingMenu(
         bankingTracker.updateLastActive()
         when (choice) {
             1 -> logInAccount(bankingTracker, dbConnector, encryptionHelper, key)
-            2 -> viewAccount(bankingTracker)
+            2 -> viewAccount(bankingTracker, encryptionHelper, key)
             3 -> enterTrackerMenu(tracker, bankingTracker, dbConnector, encryptionHelper, key)
             4 -> enterSavingsMenu(tracker, bankingTracker, dbConnector, savingsTracker)
             5 -> changePin(bankingTracker, dbConnector, encryptionHelper, key)
@@ -125,8 +125,8 @@ fun changePin(bankingTracker: BankingTracker, dbConnector: DBConnector, encrypti
     }
 }
 
-fun viewAccount(bankingTracker: BankingTracker) {
-    bankingTracker.viewAccount()
+fun viewAccount(bankingTracker: BankingTracker, encryptionHelper: EncryptionHelper, key: Key) {
+    bankingTracker.viewAccount(encryptionHelper, key)
 }
 
 fun isStrongPin(pin: String): Boolean {
@@ -259,7 +259,7 @@ fun trackerMenu(
             2 -> withdraw(tracker, bankingTracker, dbConnector)
             3 -> transferMoney(tracker, bankingTracker, dbConnector, encryptionHelper, key)
             4 -> viewTransactions(tracker, bankingTracker, dbConnector)
-            5 -> exportTransactions(tracker, bankingTracker, dbConnector)
+            5 -> exportTransactions(tracker, bankingTracker, dbConnector, encryptionHelper, key)
             6 -> run = false
             else -> println("Invalid choice. Please try again.")
         }
@@ -338,13 +338,13 @@ fun viewTransactions(tracker: FinanceTracker, bankingTracker: BankingTracker, db
     println("\nCurrent Balance: $${bankingTracker.getActiveAccount()?.getBalance()}")
 }
 
-fun exportTransactions(tracker: FinanceTracker, bankingTracker: BankingTracker, dbConnector: DBConnector) {
+fun exportTransactions(tracker: FinanceTracker, bankingTracker: BankingTracker, dbConnector: DBConnector, encryptionHelper: EncryptionHelper, key: Key) {
     val account = bankingTracker.getActiveAccount()
     if (account == null) {
         println("No active account. Please log in first.")
         return
     }
-    tracker.exportTransactionsForAccount(account, dbConnector)
+    tracker.exportTransactionsForAccount(account, dbConnector, encryptionHelper, key)
 }
 
 fun printSavingsMenu() {

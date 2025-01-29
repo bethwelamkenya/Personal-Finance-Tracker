@@ -1,6 +1,7 @@
 package org.example
 
 import java.io.File
+import java.security.Key
 import java.time.LocalDate
 
 class FinanceTracker {
@@ -20,10 +21,10 @@ class FinanceTracker {
         }
     }
 
-    fun exportTransactionsForAccount(account: BankAccount, dbConnector: DBConnector) {
+    fun exportTransactionsForAccount(account: BankAccount, dbConnector: DBConnector, encryptionHelper: EncryptionHelper, key: Key) {
         val transactions = dbConnector.getTransactionsForAccount(account.getAccountNumber()) as ArrayList<Transaction>
         transactions.sortBy { it.date }
-        val fileName = "${account.getAccountNumber()}_transactions.csv"
+        val fileName = "${encryptionHelper.decryptText(account.getAccountNumber(), key)}_transactions.csv"
 
         File(fileName).bufferedWriter().use { writer ->
             writer.write("Date,Type,Description,Amount\n")

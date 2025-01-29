@@ -43,13 +43,13 @@ class BankingTracker {
         activeAccount = null
     }
 
-    fun viewAccount() {
+    fun viewAccount(encryptionHelper: EncryptionHelper, key: Key) {
         if (activeAccount == null) {
             println("No active account. Please log in first.")
             return
         }
         println("\n=== Account Information ===")
-        println("Account Number: ${activeAccount?.getAccountNumber()}")
+        println("Account Number: ${encryptionHelper.decryptText(activeAccount?.getAccountNumber()!!, key)}")
         println("Account Holder: ${activeAccount?.getAccountHolder()}")
         println("Bank Name: ${activeAccount?.getBankName()}")
         println("Balance: ${activeAccount?.getBalance()} ${activeAccount?.usedCurrency}")
