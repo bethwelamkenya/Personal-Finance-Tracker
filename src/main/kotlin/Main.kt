@@ -36,7 +36,7 @@ fun bankingMenu(
         if (System.currentTimeMillis() - bankingTracker.lastActive > inactivityLimit) {
             println("Session expired due to inactivity.")
             bankingTracker.logOut()
-            return
+//            return
         }
 
         printBankingMenu()
@@ -117,27 +117,35 @@ fun isStrongPin(pin: String): Boolean {
 }
 
 fun addBankAccount(bankingTracker: BankingTracker, dbConnector: DBConnector) {
-    print("Enter account number: ")
-    val accountNumber = readlnOrNull()
-    print("Enter account holder: ")
-    val accountHolder = readlnOrNull()
-    print("Enter bank name: ")
-    val bankName = readlnOrNull()
     var run = true
-    while (run) {
-        print("Enter PIN: ")
-        val pin = readlnOrNull()
-        if (accountNumber != null && accountHolder != null && bankName != null && pin != null) {
-            if (isStrongPin(pin)) {
-                bankingTracker.createAccount(accountNumber, accountHolder, bankName, pin, dbConnector)
-                println("Bank account added successfully.")
-                run = false
-            } else {
-                println("Invalid PIN. Must be at least 4 digits.")
+    var running = true
+    while(running) {
+        print("Enter account number: ")
+        val accountNumber = readlnOrNull()
+        if (accountNumber != null && dbConnector.getBankAccount(accountNumber) == null) {
+            print("Enter account holder: ")
+            val accountHolder = readlnOrNull()
+            print("Enter bank name: ")
+            val bankName = readlnOrNull()
+            while (run) {
+                print("Enter PIN: ")
+                val pin = readlnOrNull()
+                if (accountHolder != null && bankName != null && pin != null) {
+                    if (isStrongPin(pin)) {
+                        bankingTracker.createAccount(accountNumber, accountHolder, bankName, pin, dbConnector)
+                        println("Bank account added successfully.")
+                        run = false
+                    } else {
+                        println("Invalid PIN. Must be at least 4 digits.")
+                    }
+                } else {
+                    println("Invalid input. Bank account not added.")
+                    run = false
+                }
             }
+            running = false
         } else {
-            println("Invalid input. Bank account not added.")
-            run = false
+            println("Account number already exists. Please try again.")
         }
     }
 }

@@ -3,8 +3,18 @@ package org.example
 import java.time.LocalDate
 
 class SavingsTracker {
-    fun createSavingsGoal(bankingTracker: BankingTracker, goalName: String, targetAmount: Double, dbConnector: DBConnector){
-        if (dbConnector.addSavingsGoal(bankingTracker.getActiveAccount()!!.getAccountNumber(), goalName, targetAmount)) {
+    fun createSavingsGoal(
+        bankingTracker: BankingTracker,
+        goalName: String,
+        targetAmount: Double,
+        dbConnector: DBConnector
+    ) {
+        if (dbConnector.addSavingsGoal(
+                bankingTracker.getActiveAccount()!!.getAccountNumber(),
+                goalName,
+                targetAmount
+            )
+        ) {
             println("Savings goal added successfully.")
         } else {
             println("Failed to add savings goal.")
@@ -34,20 +44,30 @@ class SavingsTracker {
         dbConnector: DBConnector
     ) {
         val account = bankingTracker.getActiveAccount()!!
-        if (dbConnector.depositToSavings(account.getAccountNumber(), goalId, amount)) {
-            bankingTracker.withdraw(
-                amount,
-                "Savings Deposit",
-                tracker,
-                dbConnector
-            )
-            println("Deposit successful!")
+        if (account.getBalance() >= amount) {
+            if (dbConnector.depositToSavings(account.getAccountNumber(), goalId, amount)) {
+                bankingTracker.withdraw(
+                    amount,
+                    "Savings Deposit",
+                    tracker,
+                    dbConnector
+                )
+                println("Deposit successful!")
+            } else {
+                println("Deposit failed. Check goal ID or amount.")
+            }
         } else {
-            println("Deposit failed. Check goal ID or amount.")
+            println("Deposit failed. Check amount.")
         }
     }
 
-    fun withdrawFromSavings(bankingTracker: BankingTracker, goalId: Int, amount: Double, tracker: FinanceTracker, dbConnector: DBConnector) {
+    fun withdrawFromSavings(
+        bankingTracker: BankingTracker,
+        goalId: Int,
+        amount: Double,
+        tracker: FinanceTracker,
+        dbConnector: DBConnector
+    ) {
         val account = bankingTracker.getActiveAccount()!!
         if (dbConnector.withdrawFromSavings(account.getAccountNumber(), goalId, amount)) {
             bankingTracker.deposit(

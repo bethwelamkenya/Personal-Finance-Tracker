@@ -53,28 +53,30 @@ class BankingTracker {
         return activeAccount
     }
 
-    fun deposit(amount: Double, description: String?, tracker: FinanceTracker, dbConnector: DBConnector) {
+    fun deposit(amount: Double, description: String?, tracker: FinanceTracker, dbConnector: DBConnector): Boolean {
         if (activeAccount == null) {
             println("No active account. Please log in first.")
-            return
+            return false
         }
         activeAccount?.deposit(amount, description, tracker, dbConnector)
         dbConnector.updateAccountBalance(activeAccount!!.getAccountNumber(), activeAccount!!.getBalance())
         println("Deposit successful. New balance: $${activeAccount?.getBalance()}")
+        return true
     }
 
-    fun withdraw(amount: Double, description: String?, tracker: FinanceTracker, dbConnector: DBConnector) {
+    fun withdraw(amount: Double, description: String?, tracker: FinanceTracker, dbConnector: DBConnector) : Boolean {
         if (activeAccount == null) {
             println("No active account. Please log in first.")
-            return
+            return false
         }
         if (activeAccount?.getBalance()!! < amount) {
             println("Insufficient funds.")
-            return
+            return false
         }
         activeAccount?.withdraw(amount, description, tracker, dbConnector)
         dbConnector.updateAccountBalance(activeAccount!!.getAccountNumber(), activeAccount!!.getBalance())
         println("Withdrawal successful. New balance: $${activeAccount?.getBalance()}")
+        return true
     }
 
     fun transferFunds(receiver: BankAccount, amount: Double, dbConnector: DBConnector, tracker: FinanceTracker) {
