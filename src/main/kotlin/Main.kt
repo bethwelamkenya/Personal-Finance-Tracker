@@ -87,22 +87,33 @@ fun changePin(bankingTracker: BankingTracker, dbConnector: DBConnector) {
         println("Incorrect PIN. PIN change failed.")
         return
     }
-
-    print("Enter new PIN: ")
-    val newPin = readlnOrNull()
-    if (newPin != null && newPin.length >= 4) {
-        if (dbConnector.updatePin(account.getAccountNumber(), newPin)) {
-            println("PIN updated successfully.")
+    var run = true
+    while (run) {
+        print("Enter new PIN: ")
+        val newPin = readlnOrNull()
+        if (newPin != null) {
+            if (isStrongPin(newPin)) {
+                if (dbConnector.updatePin(account.getAccountNumber(), newPin)) {
+                    println("PIN updated successfully.")
+                } else {
+                    println("PIN update failed.")
+                }
+                run = false
+            } else {
+                println("Invalid PIN. Must be at least 4 digits.")
+            }
         } else {
-            println("PIN update failed.")
+            println("Invalid PIN. Please try again")
         }
-    } else {
-        println("Invalid PIN. Must be at least 4 digits.")
     }
 }
 
 fun viewAccount(bankingTracker: BankingTracker) {
     bankingTracker.viewAccount()
+}
+
+fun isStrongPin(pin: String): Boolean {
+    return pin.length >= 4 && pin.any { it.isDigit() }
 }
 
 fun addBankAccount(bankingTracker: BankingTracker, dbConnector: DBConnector) {
@@ -112,13 +123,22 @@ fun addBankAccount(bankingTracker: BankingTracker, dbConnector: DBConnector) {
     val accountHolder = readlnOrNull()
     print("Enter bank name: ")
     val bankName = readlnOrNull()
-    print("Enter PIN: ")
-    val pin = readlnOrNull()
-    if (accountNumber != null && accountHolder != null && bankName != null && pin != null) {
-        bankingTracker.createAccount(accountNumber, accountHolder, bankName, pin, dbConnector)
-        println("Bank account added successfully.")
-    } else {
-        println("Invalid input. Bank account not added.")
+    var run = true
+    while (run) {
+        print("Enter PIN: ")
+        val pin = readlnOrNull()
+        if (accountNumber != null && accountHolder != null && bankName != null && pin != null) {
+            if (isStrongPin(pin)) {
+                bankingTracker.createAccount(accountNumber, accountHolder, bankName, pin, dbConnector)
+                println("Bank account added successfully.")
+                run = false
+            } else {
+                println("Invalid PIN. Must be at least 4 digits.")
+            }
+        } else {
+            println("Invalid input. Bank account not added.")
+            run = false
+        }
     }
 }
 

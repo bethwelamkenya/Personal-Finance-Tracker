@@ -1,7 +1,5 @@
 package org.example
 
-import java.io.File
-
 class BankingTracker {
     private var activeAccount: BankAccount? = null
     var lastActive: Long = System.currentTimeMillis()
@@ -48,7 +46,7 @@ class BankingTracker {
         println("Account Number: ${activeAccount?.getAccountNumber()}")
         println("Account Holder: ${activeAccount?.getAccountHolder()}")
         println("Bank Name: ${activeAccount?.getBankName()}")
-        println("Balance: ${activeAccount?.getBalance()} ${activeAccount?.currency}")
+        println("Balance: ${activeAccount?.getBalance()} ${activeAccount?.usedCurrency}")
     }
 
     fun getActiveAccount(): BankAccount? {
