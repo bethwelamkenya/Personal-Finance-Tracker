@@ -26,12 +26,14 @@
         <TextField fx:id="accountNumberField" GridPane.columnIndex="1" GridPane.rowIndex="0" />
         <Label text="PIN:" GridPane.columnIndex="0" GridPane.rowIndex="1" />
         <PasswordField fx:id="pinField" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-        <Button onAction="#handleLogin" text="Log In" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+        <Text fx:id="dontHaveAccount" onMouseClicked="#createAccount" strokeType="OUTSIDE" strokeWidth="0.0" text="Dont have an account?" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+        <Button onAction="#handleLogin" text="Log In" GridPane.columnIndex="1" GridPane.rowIndex="3" />
       <columnConstraints>
          <ColumnConstraints />
          <ColumnConstraints />
       </columnConstraints>
       <rowConstraints>
+         <RowConstraints />
          <RowConstraints />
          <RowConstraints />
          <RowConstraints />

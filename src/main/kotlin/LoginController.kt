@@ -6,9 +6,13 @@ import javafx.scene.Parent
 import javafx.scene.control.Button
 import javafx.scene.control.PasswordField
 import javafx.scene.control.TextField
+import javafx.scene.input.MouseEvent
+import javafx.scene.text.Text
 import java.security.Key
 
 class LoginController {
+    @FXML
+    lateinit var dontHaveAccount: Text
     @FXML
     lateinit var loginButton: Button
     @FXML
@@ -16,11 +20,11 @@ class LoginController {
     @FXML
     private lateinit var pinField: PasswordField
 
-    lateinit var tracker: FinanceTracker
-    lateinit var bankingTracker: BankingTracker
-    lateinit var dbConnector: DBConnector
-    lateinit var savingsTracker: SavingsTracker
-    lateinit var encryptionHelper: EncryptionHelper
+    private lateinit var tracker: FinanceTracker
+    private lateinit var bankingTracker: BankingTracker
+    private lateinit var dbConnector: DBConnector
+    private lateinit var savingsTracker: SavingsTracker
+    private lateinit var encryptionHelper: EncryptionHelper
     lateinit var key: Key
 
     fun initialize(
@@ -61,5 +65,18 @@ class LoginController {
         } else {
             println("Please enter both account number and PIN.")
         }
+    }
+
+    @FXML
+    fun createAccount(mouseEvent: MouseEvent) {
+
+        // Load the create account view
+        val loader = FXMLLoader(javaClass.getResource("/create_account.fxml"))
+        val root: Parent = loader.load()
+        val controller = loader.getController<CreateAccountController>()
+        controller.initialize(tracker, bankingTracker, dbConnector, savingsTracker, encryptionHelper, key)
+
+        val scene = accountNumberField.scene
+        scene.root = root
     }
 }

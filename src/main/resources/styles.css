@@ -11,6 +11,7 @@
     -fx-font-size: 14px;
     -fx-font-weight: bold;
     -fx-text-fill: #333333; /* Dark gray text */
+    -fx-padding: 10px 20px; /* Margin bottom */
 }
 
 /* Style for text fields */
@@ -30,7 +31,7 @@
     -fx-text-fill: white; /* White text */
     -fx-border-radius: 5px;
     -fx-padding: 10px 20px;
-    -fx-animated: -fx-background-color 0.5s ease-in-out;;
+    /*-fx-animated: background-color 0.5s ease-in-out;;*/
 }
 
 /* Hover effect for buttons */
@@ -40,8 +41,8 @@
 
 /* Style for the grid pane */
 .grid-pane {
-    -fx-hgap: 10px;
-    -fx-vgap: 10px;
+    -fx-hgap: 20px;
+    -fx-vgap: 20px;
 }
 
 /* Style for titles */
@@ -55,4 +56,15 @@
 /* Gradient effect for titles */
 .gradient-text {
     -fx-fill: linear-gradient(from 0% 0% to 100% 0%, #1A6DFF, #C822FF);
+}
+
+#dontHaveAccount {
+    -fx-font-weight: bold;
+    -fx-text-fill: #333333; /* Dark gray text */
+    -fx-padding: 10px 20px; /* Margin bottom */
+    -fx-font-size: 14px;
+}
+
+#dontHaveAccount:hover {
+    -fx-text-fill: #1A6DFF; /* Blue text on hover */
 }
