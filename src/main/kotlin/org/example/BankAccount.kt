@@ -8,6 +8,7 @@ class BankAccount {
     private var accountHolder: String = ""
     private var bankName: String = ""
     private var pin: String = ""
+    var currency: String = "USD"
 
     fun deposit(amount: Double, description: String?, tracker: FinanceTracker, dbConnector: DBConnector) {
         balance += amount
@@ -63,6 +64,13 @@ class BankAccount {
         this.balance = balance
     }
 
+    fun setCurrency(currency: String) {
+        this.currency = currency
+    }
+
+    fun getCurrency(): String {
+        return currency
+    }
 
     override fun toString(): String {
         return "$accountNumber,$accountHolder,$bankName,$pin,$balance"

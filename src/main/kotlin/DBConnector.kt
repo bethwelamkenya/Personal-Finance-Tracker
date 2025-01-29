@@ -28,6 +28,18 @@ class DBConnector {
         }
     }
 
+    fun updatePin(accountNumber: String, newPin: String): Boolean {
+        val sql = "UPDATE bank_accounts SET pin = ? WHERE account_number = ?"
+        DatabaseHelper.getConnection().use { connection ->
+            connection.prepareStatement(sql).use { stmt ->
+                stmt.setString(1, newPin)
+                stmt.setString(2, accountNumber)
+                val rowsUpdated = stmt.executeUpdate()
+                return rowsUpdated > 0
+            }
+        }
+    }
+
     fun getBankAccount(accountNumber: String): BankAccount? {
         val sql = "SELECT * FROM bank_accounts WHERE account_number = ?"
         DatabaseHelper.getConnection().use { connection ->
@@ -44,6 +56,17 @@ class DBConnector {
                         bankAccount
                     } else null
                 }
+            }
+        }
+    }
+
+    fun deleteAccount(accountNumber: String): Boolean {
+        val sql = "DELETE FROM bank_accounts WHERE account_number = ?"
+        DatabaseHelper.getConnection().use { connection ->
+            connection.prepareStatement(sql).use { stmt ->
+                stmt.setString(1, accountNumber)
+                val rowsDeleted = stmt.executeUpdate()
+                return rowsDeleted > 0
             }
         }
     }

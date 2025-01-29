@@ -9,9 +9,9 @@ class FinanceTracker {
         dbConnector.addTransaction(transaction)
     }
 
-    fun getTransactionsForAccount(account: String, dbConnector: DBConnector) {
+    fun getTransactionsForAccount(account: BankAccount, dbConnector: DBConnector) {
         val accountTransactions: ArrayList<Transaction> =
-            dbConnector.getTransactionsForAccount(account) as ArrayList<Transaction>
+            dbConnector.getTransactionsForAccount(account.getAccountNumber()) as ArrayList<Transaction>
         if (accountTransactions.isEmpty()) {
             println("No transactions found for account $account.")
         } else {
@@ -19,4 +19,19 @@ class FinanceTracker {
             accountTransactions.forEach { println("${it.date} -- ${it.type} - ${it.description}: $${it.amount}") }
         }
     }
+
+    fun exportTransactionsForAccount(account: BankAccount, dbConnector: DBConnector) {
+        val transactions = dbConnector.getTransactionsForAccount(account.getAccountNumber()) as ArrayList<Transaction>
+        transactions.sortBy { it.date }
+        val fileName = "${account.getAccountNumber()}_transactions.csv"
+
+        File(fileName).bufferedWriter().use { writer ->
+            writer.write("Date,Type,Description,Amount\n")
+            for (transaction in transactions) {
+                writer.write("${transaction.date},${transaction.type},${transaction.description},${transaction.amount}\n")
+            }
+        }
+        println("Transactions exported to $fileName")
+    }
+
 }

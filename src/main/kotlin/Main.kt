@@ -15,23 +15,35 @@ fun printBankingMenu() {
     println("1. Log In to Account")
     println("2. View Account")
     println("3. Transact Money")
-    println("4. Log Out")
-    println("5. Add Bank Account")
-    println("6. Exit")
+    println("4. Change Pin")
+    println("5. Log Out")
+    println("6. Add Bank Account")
+    println("7. Delete Bank Account")
+    println("8. Exit")
     println("Enter your choice:")
 }
 
 fun bankingMenu(tracker: FinanceTracker, bankingTracker: BankingTracker, dbConnector: DBConnector) {
+    val inactivityLimit = 5 * 60 * 1000 // 5 minutes
     while (true) {
+        if (System.currentTimeMillis() - bankingTracker.lastActive > inactivityLimit) {
+            println("Session expired due to inactivity.")
+            bankingTracker.logOut()
+            return
+        }
+
         printBankingMenu()
         val choice = readlnOrNull()?.toIntOrNull()
+        bankingTracker.updateLastActive()
         when (choice) {
             1 -> logInAccount(bankingTracker, dbConnector)
             2 -> viewAccount(bankingTracker)
             3 -> enterTrackerMenu(tracker, bankingTracker, dbConnector)
-            4 -> logOut(bankingTracker)
-            5 -> addBankAccount(bankingTracker, dbConnector)
-            6 -> exitProcess(0)
+            4 -> changePin(bankingTracker, dbConnector)
+            5 -> logOut(bankingTracker)
+            6 -> addBankAccount(bankingTracker, dbConnector)
+            7 -> deleteBankAccount(tracker, bankingTracker, dbConnector)
+            8 -> exitProcess(0)
 
             else -> println("Invalid choice. Please try again.")
         }
@@ -51,6 +63,33 @@ fun logInAccount(bankingTracker: BankingTracker, dbConnector: DBConnector) {
         }
     } else {
         println("Invalid input. Please try again.")
+    }
+}
+
+fun changePin(bankingTracker: BankingTracker, dbConnector: DBConnector) {
+    val account = bankingTracker.getActiveAccount()
+    if (account == null) {
+        println("No active account. Please log in first.")
+        return
+    }
+
+    print("Enter current PIN: ")
+    val currentPin = readlnOrNull()
+    if (currentPin != account.getPin()) {
+        println("Incorrect PIN. PIN change failed.")
+        return
+    }
+
+    print("Enter new PIN: ")
+    val newPin = readlnOrNull()
+    if (newPin != null && newPin.length >= 4) {
+        if (dbConnector.updatePin(account.getAccountNumber(), newPin)) {
+            println("PIN updated successfully.")
+        } else {
+            println("PIN update failed.")
+        }
+    } else {
+        println("Invalid PIN. Must be at least 4 digits.")
     }
 }
 
@@ -75,6 +114,23 @@ fun addBankAccount(bankingTracker: BankingTracker, dbConnector: DBConnector) {
     }
 }
 
+fun deleteBankAccount(tracker: FinanceTracker, bankingTracker: BankingTracker, dbConnector: DBConnector) {
+    val account = bankingTracker.getActiveAccount()
+    if (account == null) {
+        println("No active account. Please log in first.")
+        return
+    }
+
+    print("Are you sure you want to delete your account? (yes/no): ")
+    val confirm = readlnOrNull()
+    if (confirm.equals("yes", ignoreCase = true)) {
+        bankingTracker.deleteAccount(tracker, dbConnector)
+    } else {
+        println("Account deletion canceled.")
+    }
+}
+
+
 fun enterTrackerMenu(tracker: FinanceTracker, bankingTracker: BankingTracker, dbConnector: DBConnector) {
     if (bankingTracker.getActiveAccount() == null) {
         println("No active account. Please log in first.")
@@ -93,8 +149,10 @@ fun printTrackerMenu() {
     println("\nWelcome to the Personal Finance Tracker!")
     println("1. Deposit")
     println("2. Withdraw")
-    println("3. View Transactions")
-    println("4. Back")
+    println("3. Transfer Money")
+    println("4. View Transactions")
+    println("5. Export Transactions")
+    println("6. Back")
     println("Enter your choice:")
 }
 
@@ -106,8 +164,10 @@ fun trackerMenu(tracker: FinanceTracker, bankingTracker: BankingTracker, dbConne
         when (choice) {
             1 -> deposit(tracker, bankingTracker, dbConnector)
             2 -> withdraw(tracker, bankingTracker, dbConnector)
-            3 -> viewTransactions(tracker, bankingTracker, dbConnector)
-            4 -> run = false
+            3 -> transferMoney(tracker, bankingTracker, dbConnector)
+            4 -> viewTransactions(tracker, bankingTracker, dbConnector)
+            5 -> exportTransactions(tracker, bankingTracker, dbConnector)
+            6 -> run = false
             else -> println("Invalid choice. Please try again.")
         }
     }
@@ -137,10 +197,45 @@ fun withdraw(tracker: FinanceTracker, bankingTracker: BankingTracker, dbConnecto
     }
 }
 
+fun transferMoney(tracker: FinanceTracker, bankingTracker: BankingTracker, dbConnector: DBConnector) {
+    val senderAccount = bankingTracker.getActiveAccount()
+    if (senderAccount == null) {
+        println("No active account. Please log in first.")
+        return
+    }
+
+    print("Enter recipient account number: ")
+    val recipientAccountNumber = readlnOrNull()
+    val recipientAccount = dbConnector.getBankAccount(recipientAccountNumber!!)
+
+    if (recipientAccount == null) {
+        println("Recipient account not found.")
+        return
+    }
+
+    print("Enter transfer amount: ")
+    val amount = readlnOrNull()?.toDoubleOrNull()
+
+    if (amount == null || amount <= 0 || senderAccount.getBalance() < amount) {
+        println("Invalid amount or insufficient balance.")
+        return
+    }
+    bankingTracker.transferFunds(recipientAccount, amount, dbConnector, tracker)
+}
+
 fun viewTransactions(tracker: FinanceTracker, bankingTracker: BankingTracker, dbConnector: DBConnector) {
     println("\n=== Transactions ===")
-    bankingTracker.getActiveAccount()?.let { tracker.getTransactionsForAccount(it.getAccountNumber(), dbConnector) }
+    bankingTracker.getActiveAccount()?.let { tracker.getTransactionsForAccount(it, dbConnector) }
 
     println("\n=== Balance ===") //
     println("\nCurrent Balance: $${bankingTracker.getActiveAccount()?.getBalance()}")
+}
+
+fun exportTransactions(tracker: FinanceTracker, bankingTracker: BankingTracker, dbConnector: DBConnector) {
+    val account = bankingTracker.getActiveAccount()
+    if (account == null) {
+        println("No active account. Please log in first.")
+        return
+    }
+    tracker.exportTransactionsForAccount(account, dbConnector)
 }
