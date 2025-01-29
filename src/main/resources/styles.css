@@ -1,0 +1,58 @@
+/* src/main/resources/styles.css */
+
+/* Style for the root pane */
+.root {
+    -fx-background-color: #f0f0f0; /* Light gray background */
+    -fx-padding: 10px;
+}
+
+/* Style for labels */
+.label {
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #333333; /* Dark gray text */
+}
+
+/* Style for text fields */
+.text-field {
+    -fx-font-size: 14px;
+    -fx-background-color: #ffffff; /* White background */
+    -fx-border-color: #cccccc; /* Light gray border */
+    -fx-border-radius: 5px;
+    -fx-padding: 5px;
+}
+
+/* Style for buttons */
+.button {
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+    -fx-background-color: linear-gradient(to right, #1A6DFF, #C822FF); /* Gradient background */
+    -fx-text-fill: white; /* White text */
+    -fx-border-radius: 5px;
+    -fx-padding: 10px 20px;
+    -fx-animated: -fx-background-color 0.5s ease-in-out;;
+}
+
+/* Hover effect for buttons */
+.button:hover {
+    -fx-background-color: linear-gradient(to right, #6DC7FF, #E6ABFF);
+}
+
+/* Style for the grid pane */
+.grid-pane {
+    -fx-hgap: 10px;
+    -fx-vgap: 10px;
+}
+
+/* Style for titles */
+.title {
+    -fx-font-size: 32px;
+    -fx-font-weight: bold;
+    -fx-alignment: center;
+    -fx-padding: 0 0 20px 0; /* Margin bottom */
+}
+
+/* Gradient effect for titles */
+.gradient-text {
+    -fx-fill: linear-gradient(from 0% 0% to 100% 0%, #1A6DFF, #C822FF);
+}

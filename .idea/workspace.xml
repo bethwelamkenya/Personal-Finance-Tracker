@@ -4,7 +4,20 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="cfd0ce99-2f6e-41ba-9ff7-fa2da55a18b5" name="Changes" comment="set it to use mysql instead of csv and txt files" />
+    <list default="true" id="cfd0ce99-2f6e-41ba-9ff7-fa2da55a18b5" name="Changes" comment="set it to use mysql instead of csv and txt files">
+      <change afterPath="$PROJECT_DIR$/.idea/uiDesigner.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/kotlin/AccountViewController.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/kotlin/LoginController.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/kotlin/MainApp.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/account_view.fxml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/login.fxml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/styles.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build.gradle.kts" beforeDir="false" afterPath="$PROJECT_DIR$/build.gradle.kts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/SavingsTracker.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/SavingsTracker.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/org/example/BankAccount.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/BankAccount.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/kotlin/random_tests.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/kotlin/random_tests.kt" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -20,7 +33,10 @@
       <list>
         <option value="Kotlin Enum" />
         <option value="Kotlin Data Class" />
+        <option value="FxmlFile" />
+        <option value="Class" />
         <option value="Kotlin Class" />
+        <option value="CSS File" />
       </list>
     </option>
   </component>
@@ -47,6 +63,7 @@
     "Gradle.RandomTests.testEncryptDecrypt.executor": "Run",
     "Gradle.RandomTests.testGenerateKey.executor": "Run",
     "JAR Application.Unnamed.executor": "Run",
+    "Kotlin.MainAppKt.executor": "Run",
     "Kotlin.MainKt.executor": "Run",
     "Kotlin.Random_testsKt.executor": "Run",
     "Repository.Attach.Annotations": "false",
@@ -67,16 +84,18 @@
     "dart.analysis.tool.window.visible": "false",
     "git-widget-placeholder": "master",
     "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "D:/Admin/Documents/Idea Projects/PersonalFinanceTracker/build/libs/PersonalFinanceTracker-1.0-SNAPSHOT.jar",
+    "last_directory_selection": "D:/Admin/Documents/Idea Projects/PersonalFinanceTracker/src/main/kotlin",
+    "last_opened_file_path": "C:/Users/karan/AppData/Local/SceneBuilder/SceneBuilder.exe",
+    "list.type.of.created.stylesheet": "CSS",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
     "node.js.selected.package.tslint": "(autodetect)",
     "nodejs_package_manager_path": "npm",
     "onboarding.tips.debug.path": "D:/Admin/Documents/Idea Projects/PersonalFinanceTracker/src/main/kotlin/Main.kt",
-    "project.structure.last.edited": "Libraries",
+    "project.structure.last.edited": "SDKs",
     "project.structure.proportion": "0.15",
-    "project.structure.side.proportion": "0.2",
+    "project.structure.side.proportion": "0.35977012",
     "settings.editor.selected.configurable": "reference.settingsdialog.project.gradle",
     "show.migrate.to.gradle.popup": "false",
     "vue.rearranger.settings.migration": "true"
@@ -91,8 +110,14 @@
     <key name="CreateKotlinClassDialog.RecentsKey">
       <recent name="org.example" />
     </key>
+    <key name="MoveKotlinTopLevelDeclarationsDialog.RECENTS_KEY">
+      <recent name="" />
+    </key>
+    <key name="MoveClassesOrPackagesDialog.RECENTS_KEY">
+      <recent name="" />
+    </key>
   </component>
-  <component name="RunManager" selected="Kotlin.MainKt">
+  <component name="RunManager" selected="Kotlin.MainAppKt">
     <configuration name="Tracker" type="Application" factoryName="Application">
       <option name="MAIN_CLASS_NAME" value="org.example.MainKt" />
       <module name="PersonalFinanceTracker.main" />
@@ -155,6 +180,13 @@
       <option name="ALTERNATIVE_JRE_PATH" value="corretto-20" />
       <method v="2" />
     </configuration>
+    <configuration name="MainAppKt" type="JetRunConfigurationType" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="org.example.MainAppKt" />
+      <module name="PersonalFinanceTracker.main" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="MainKt" type="JetRunConfigurationType" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="org.example.MainKt" />
       <module name="PersonalFinanceTracker.main" />
@@ -190,11 +222,13 @@
       <item itemvalue="Gradle.RandomTests.testGenerateKey" />
       <item itemvalue="JAR Application.Unnamed" />
       <item itemvalue="Kotlin.MainKt" />
+      <item itemvalue="Kotlin.MainAppKt" />
       <item itemvalue="Kotlin.Random_testsKt" />
       <item itemvalue="Shell Script.Build Jar" />
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="Kotlin.MainAppKt" />
         <item itemvalue="Gradle.RandomTests.testEncryptDecrypt" />
         <item itemvalue="Gradle.RandomTests.testGenerateKey" />
         <item itemvalue="Kotlin.Random_testsKt" />
@@ -224,7 +258,8 @@
       <option name="presentableId" value="Default" />
       <updated>1738067903747</updated>
       <workItem from="1738067904734" duration="2641000" />
-      <workItem from="1738070629451" duration="34102000" />
+      <workItem from="1738070629451" duration="37432000" />
+      <workItem from="1738175223839" duration="5032000" />
     </task>
     <task id="LOCAL-00001" summary="Personal Finance Tracker">
       <option name="closed" value="true" />
@@ -298,7 +333,15 @@
       <option name="project" value="LOCAL" />
       <updated>1738169354391</updated>
     </task>
-    <option name="localTasksCounter" value="10" />
+    <task id="LOCAL-00010" summary="set it to use mysql instead of csv and txt files">
+      <option name="closed" value="true" />
+      <created>1738170073272</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1738170073272</updated>
+    </task>
+    <option name="localTasksCounter" value="11" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">

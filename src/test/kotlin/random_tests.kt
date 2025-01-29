@@ -12,7 +12,7 @@ class RandomTests {
 //        assertEquals(1, tracker.getAccounts().size)
 //    }
 
-    fun isStrongPin(pin: String): Boolean {
+    private fun isStrongPin(pin: String): Boolean {
         return pin.length >= 4 && pin.any { it.isDigit() }
     }
 

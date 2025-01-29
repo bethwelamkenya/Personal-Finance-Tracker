@@ -1,7 +1,5 @@
 package org.example
 
-import java.time.LocalDate
-
 class SavingsTracker {
     fun createSavingsGoal(
         bankingTracker: BankingTracker,
