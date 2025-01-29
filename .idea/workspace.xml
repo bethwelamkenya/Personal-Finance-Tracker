@@ -4,14 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="cfd0ce99-2f6e-41ba-9ff7-fa2da55a18b5" name="Changes" comment="set it to use gui instead of cli">
-      <change afterPath="$PROJECT_DIR$/src/main/kotlin/CreateAccountController.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/create_account.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/LoginController.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/LoginController.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/login.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/login.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/styles.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/styles.css" afterDir="false" />
-    </list>
+    <list default="true" id="cfd0ce99-2f6e-41ba-9ff7-fa2da55a18b5" name="Changes" comment="set it to use gui instead of cli" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -253,7 +246,7 @@
       <updated>1738067903747</updated>
       <workItem from="1738067904734" duration="2641000" />
       <workItem from="1738070629451" duration="37432000" />
-      <workItem from="1738175223839" duration="5753000" />
+      <workItem from="1738175223839" duration="6112000" />
     </task>
     <task id="LOCAL-00001" summary="Personal Finance Tracker">
       <option name="closed" value="true" />
@@ -343,7 +336,15 @@
       <option name="project" value="LOCAL" />
       <updated>1738180365908</updated>
     </task>
-    <option name="localTasksCounter" value="12" />
+    <task id="LOCAL-00012" summary="set it to use gui instead of cli">
+      <option name="closed" value="true" />
+      <created>1738181297394</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1738181297394</updated>
+    </task>
+    <option name="localTasksCounter" value="13" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
