@@ -6,8 +6,9 @@ fun main() {
     val tracker = FinanceTracker()
     val bankingTracker = BankingTracker()
     val dbConnector = DBConnector()
+    val savingsTracker = SavingsTracker()
     println("Personal Finance Tracker")
-    bankingMenu(tracker, bankingTracker, dbConnector)
+    bankingMenu(tracker, bankingTracker, dbConnector, savingsTracker)
 }
 
 fun printBankingMenu() {
@@ -15,15 +16,21 @@ fun printBankingMenu() {
     println("1. Log In to Account")
     println("2. View Account")
     println("3. Transact Money")
-    println("4. Change Pin")
-    println("5. Log Out")
-    println("6. Add Bank Account")
-    println("7. Delete Bank Account")
-    println("8. Exit")
+    println("4. Savings Account")
+    println("5. Change Pin")
+    println("6. Log Out")
+    println("7. Add Bank Account")
+    println("8. Delete Bank Account")
+    println("9. Exit")
     println("Enter your choice:")
 }
 
-fun bankingMenu(tracker: FinanceTracker, bankingTracker: BankingTracker, dbConnector: DBConnector) {
+fun bankingMenu(
+    tracker: FinanceTracker,
+    bankingTracker: BankingTracker,
+    dbConnector: DBConnector,
+    savingsTracker: SavingsTracker
+) {
     val inactivityLimit = 5 * 60 * 1000 // 5 minutes
     while (true) {
         if (System.currentTimeMillis() - bankingTracker.lastActive > inactivityLimit) {
@@ -39,11 +46,12 @@ fun bankingMenu(tracker: FinanceTracker, bankingTracker: BankingTracker, dbConne
             1 -> logInAccount(bankingTracker, dbConnector)
             2 -> viewAccount(bankingTracker)
             3 -> enterTrackerMenu(tracker, bankingTracker, dbConnector)
-            4 -> changePin(bankingTracker, dbConnector)
-            5 -> logOut(bankingTracker)
-            6 -> addBankAccount(bankingTracker, dbConnector)
-            7 -> deleteBankAccount(tracker, bankingTracker, dbConnector)
-            8 -> exitProcess(0)
+            4 -> enterSavingsMenu(tracker, bankingTracker, dbConnector, savingsTracker)
+            5 -> changePin(bankingTracker, dbConnector)
+            6 -> logOut(bankingTracker)
+            7 -> addBankAccount(bankingTracker, dbConnector)
+            8 -> deleteBankAccount(tracker, bankingTracker, dbConnector)
+            9 -> exitProcess(0)
 
             else -> println("Invalid choice. Please try again.")
         }
@@ -130,13 +138,26 @@ fun deleteBankAccount(tracker: FinanceTracker, bankingTracker: BankingTracker, d
     }
 }
 
-
 fun enterTrackerMenu(tracker: FinanceTracker, bankingTracker: BankingTracker, dbConnector: DBConnector) {
     if (bankingTracker.getActiveAccount() == null) {
         println("No active account. Please log in first.")
         return
     } else {
         trackerMenu(tracker, bankingTracker, dbConnector)
+    }
+}
+
+fun enterSavingsMenu(
+    tracker: FinanceTracker,
+    bankingTracker: BankingTracker,
+    dbConnector: DBConnector,
+    savingsTracker: SavingsTracker
+) {
+    if (bankingTracker.getActiveAccount() == null) {
+        println("No active account. Please log in first.")
+        return
+    } else {
+        savingsMenu(tracker, bankingTracker, dbConnector, savingsTracker)
     }
 }
 
@@ -238,4 +259,88 @@ fun exportTransactions(tracker: FinanceTracker, bankingTracker: BankingTracker, 
         return
     }
     tracker.exportTransactionsForAccount(account, dbConnector)
+}
+
+fun printSavingsMenu() {
+    println("\nWelcome to the Savings Menu!")
+    println("1. Create Savings Goal")
+    println("2. View Savings Goals")
+    println("3. Deposit into Savings")
+    println("4. Withdraw from Savings")
+    println("5. Back")
+    println("Enter your choice:")
+}
+
+fun savingsMenu(
+    tracker: FinanceTracker,
+    bankingTracker: BankingTracker,
+    dbConnector: DBConnector,
+    savingsTracker: SavingsTracker
+) {
+    var run = true
+    while (run) {
+        printSavingsMenu()
+        val choice = readlnOrNull()?.toIntOrNull()
+        when (choice) {
+            1 -> createSavingsGoal(bankingTracker, dbConnector, savingsTracker)
+            2 -> viewSavingsGoals(bankingTracker, dbConnector, savingsTracker)
+            3 -> depositIntoSavings(tracker, bankingTracker, dbConnector, savingsTracker)
+            4 -> withdrawFromSavings(tracker, bankingTracker, dbConnector, savingsTracker)
+            5 -> run = false
+            else -> println("Invalid choice. Please try again.")
+        }
+    }
+}
+
+fun createSavingsGoal(bankingTracker: BankingTracker, dbConnector: DBConnector, savingsTracker: SavingsTracker) {
+    print("Enter savings goal name: ")
+    val goalName = readlnOrNull()
+    print("Enter target amount: ")
+    val targetAmount = readlnOrNull()?.toDoubleOrNull()
+
+    if (goalName != null && targetAmount != null) {
+        savingsTracker.createSavingsGoal(bankingTracker, goalName, targetAmount, dbConnector)
+    } else {
+        println("Invalid input. Please try again.")
+    }
+}
+
+fun viewSavingsGoals(bankingTracker: BankingTracker, dbConnector: DBConnector, savingsTracker: SavingsTracker) {
+    savingsTracker.viewSavingsGoals(bankingTracker, dbConnector)
+}
+
+fun depositIntoSavings(
+    tracker: FinanceTracker,
+    bankingTracker: BankingTracker,
+    dbConnector: DBConnector,
+    savingsTracker: SavingsTracker
+) {
+    print("Enter savings goal ID: ")
+    val goalId = readlnOrNull()?.toIntOrNull()
+    print("Enter amount to deposit: ")
+    val amount = readlnOrNull()?.toDoubleOrNull()
+
+    if (goalId != null && amount != null) {
+        savingsTracker.depositIntoSavings(bankingTracker, goalId, amount, tracker, dbConnector)
+    } else {
+        println("Invalid input. Please try again.")
+    }
+}
+
+fun withdrawFromSavings(
+    tracker: FinanceTracker,
+    bankingTracker: BankingTracker,
+    dbConnector: DBConnector,
+    savingsTracker: SavingsTracker
+) {
+    print("Enter savings goal ID: ")
+    val goalId = readlnOrNull()?.toIntOrNull()
+    print("Enter amount to withdraw: ")
+    val amount = readlnOrNull()?.toDoubleOrNull()
+
+    if (goalId != null && amount != null) {
+        savingsTracker.withdrawFromSavings(bankingTracker, goalId, amount, tracker, dbConnector)
+    } else {
+        println("Invalid input. Please try again.")
+    }
 }

@@ -5,12 +5,11 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="cfd0ce99-2f6e-41ba-9ff7-fa2da55a18b5" name="Changes" comment="set it to use mysql instead of csv and txt files">
+      <change afterPath="$PROJECT_DIR$/src/main/kotlin/SavingsGoal.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/kotlin/SavingsTracker.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/BankingTracker.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/BankingTracker.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/kotlin/DBConnector.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/DBConnector.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/FinanceTracker.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/FinanceTracker.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/kotlin/Main.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/Main.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/org/example/BankAccount.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/org/example/BankAccount.kt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -163,7 +162,7 @@
       <option name="presentableId" value="Default" />
       <updated>1738067903747</updated>
       <workItem from="1738067904734" duration="2641000" />
-      <workItem from="1738070629451" duration="20455000" />
+      <workItem from="1738070629451" duration="23489000" />
     </task>
     <task id="LOCAL-00001" summary="Personal Finance Tracker">
       <option name="closed" value="true" />
@@ -189,7 +188,15 @@
       <option name="project" value="LOCAL" />
       <updated>1738148025958</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="set it to use mysql instead of csv and txt files">
+      <option name="closed" value="true" />
+      <created>1738155938821</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1738155938821</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">

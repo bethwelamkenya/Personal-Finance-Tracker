@@ -130,5 +130,75 @@ class DBConnector {
         return transactions
     }
 
+    fun addSavingsGoal(accountNumber: String, goalName: String, targetAmount: Double): Boolean {
+        val sql = "INSERT INTO savings_accounts (account_number, goal_name, target_amount, saved_amount) VALUES (?, ?, ?, 0.0)"
+        DatabaseHelper.getConnection().use { connection ->
+            connection.prepareStatement(sql).use { stmt ->
+                stmt.setString(1, accountNumber)
+                stmt.setString(2, goalName)
+                stmt.setDouble(3, targetAmount)
+                return stmt.executeUpdate() > 0
+            }
+        }
+    }
+
+    fun getSavingsGoals(accountNumber: String): List<SavingsGoal> {
+        val sql = "SELECT * FROM savings_accounts WHERE account_number = ?"
+        val savingsGoals = mutableListOf<SavingsGoal>()
+        DatabaseHelper.getConnection().use { connection ->
+            connection.prepareStatement(sql).use { stmt ->
+                stmt.setString(1, accountNumber)
+                stmt.executeQuery().use { rs ->
+                    while (rs.next()) {
+                        savingsGoals.add(
+                            SavingsGoal(
+                                id = rs.getInt("id"),
+                                accountNumber = rs.getString("account_number"),
+                                goalName = rs.getString("goal_name"),
+                                targetAmount = rs.getDouble("target_amount"),
+                                savedAmount = rs.getDouble("saved_amount")
+                            )
+                        )
+                    }
+                }
+            }
+        }
+        return savingsGoals
+    }
+
+    fun depositToSavings(accountNumber: String, goalId: Int, amount: Double): Boolean {
+        val sql = "UPDATE savings_accounts SET saved_amount = saved_amount + ? WHERE id = ? AND account_number = ?"
+        DatabaseHelper.getConnection().use { connection ->
+            connection.prepareStatement(sql).use { stmt ->
+                stmt.setDouble(1, amount)
+                stmt.setInt(2, goalId)
+                stmt.setString(3, accountNumber)
+                return stmt.executeUpdate() > 0
+            }
+        }
+    }
+
+    fun withdrawFromSavings(accountNumber: String, goalId: Int, amount: Double): Boolean {
+        val sqlCheck = "SELECT saved_amount FROM savings_accounts WHERE id = ? AND account_number = ?"
+        val sqlUpdate = "UPDATE savings_accounts SET saved_amount = saved_amount - ? WHERE id = ? AND account_number = ?"
+
+        DatabaseHelper.getConnection().use { connection ->
+            connection.prepareStatement(sqlCheck).use { stmt ->
+                stmt.setInt(1, goalId)
+                stmt.setString(2, accountNumber)
+                val rs = stmt.executeQuery()
+                if (rs.next() && rs.getDouble("saved_amount") >= amount) {
+                    connection.prepareStatement(sqlUpdate).use { updateStmt ->
+                        updateStmt.setDouble(1, amount)
+                        updateStmt.setInt(2, goalId)
+                        updateStmt.setString(3, accountNumber)
+                        return updateStmt.executeUpdate() > 0
+                    }
+                }
+            }
+        }
+        return false
+    }
+
 }
 
