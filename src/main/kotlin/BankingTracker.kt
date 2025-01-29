@@ -1,5 +1,7 @@
 package org.example
 
+import java.security.Key
+
 class BankingTracker {
     private var activeAccount: BankAccount? = null
     var lastActive: Long = System.currentTimeMillis()
@@ -24,9 +26,13 @@ class BankingTracker {
         activeAccount = account
     }
 
-    fun logIn(accountNumber: String, pin: String, dbConnector: DBConnector): Boolean {
+    fun logIn(
+        accountNumber: String,
+        pin: String,
+        dbConnector: DBConnector
+    ): Boolean {
         val account = dbConnector.getBankAccount(accountNumber)
-        if (account == null || account.getPin() != pin) {
+        if (account == null || pin != account.getPin()) {
             return false
         }
         activeAccount = account
@@ -53,18 +59,31 @@ class BankingTracker {
         return activeAccount
     }
 
-    fun deposit(amount: Double, description: String?, tracker: FinanceTracker, dbConnector: DBConnector): Boolean {
+    fun deposit(
+        amount: Double,
+        description: String?,
+        tracker: FinanceTracker,
+        dbConnector: DBConnector
+    ): Boolean {
         if (activeAccount == null) {
             println("No active account. Please log in first.")
             return false
         }
         activeAccount?.deposit(amount, description, tracker, dbConnector)
-        dbConnector.updateAccountBalance(activeAccount!!.getAccountNumber(), activeAccount!!.getBalance())
+        dbConnector.updateAccountBalance(
+            activeAccount!!.getAccountNumber(),
+            activeAccount!!.getBalance()
+        )
         println("Deposit successful. New balance: $${activeAccount?.getBalance()}")
         return true
     }
 
-    fun withdraw(amount: Double, description: String?, tracker: FinanceTracker, dbConnector: DBConnector) : Boolean {
+    fun withdraw(
+        amount: Double,
+        description: String?,
+        tracker: FinanceTracker,
+        dbConnector: DBConnector,
+    ): Boolean {
         if (activeAccount == null) {
             println("No active account. Please log in first.")
             return false
@@ -74,7 +93,10 @@ class BankingTracker {
             return false
         }
         activeAccount?.withdraw(amount, description, tracker, dbConnector)
-        dbConnector.updateAccountBalance(activeAccount!!.getAccountNumber(), activeAccount!!.getBalance())
+        dbConnector.updateAccountBalance(
+            activeAccount!!.getAccountNumber(),
+            activeAccount!!.getBalance()
+        )
         println("Withdrawal successful. New balance: $${activeAccount?.getBalance()}")
         return true
     }

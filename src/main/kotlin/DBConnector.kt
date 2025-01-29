@@ -60,6 +60,20 @@ class DBConnector {
         }
     }
 
+    fun getSecretKey(id: Int): String? {
+        val sql = "SELECT * FROM secure_keys WHERE id = ?"
+        DatabaseHelper.getConnection().use { connection ->
+            connection.prepareStatement(sql).use { stmt ->
+                stmt.setInt(1, id)
+                stmt.executeQuery().use { rs ->
+                    return if (rs.next()) {
+                        rs.getString("key")
+                    } else null
+                }
+            }
+        }
+    }
+
     fun deleteAccount(accountNumber: String): Boolean {
         val sql = "DELETE FROM bank_accounts WHERE account_number = ?"
         DatabaseHelper.getConnection().use { connection ->

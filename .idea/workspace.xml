@@ -4,7 +4,14 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="cfd0ce99-2f6e-41ba-9ff7-fa2da55a18b5" name="Changes" comment="set it to use mysql instead of csv and txt files" />
+    <list default="true" id="cfd0ce99-2f6e-41ba-9ff7-fa2da55a18b5" name="Changes" comment="set it to use mysql instead of csv and txt files">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/BankingTracker.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/BankingTracker.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/DBConnector.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/DBConnector.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/Encrypting.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/EncryptionHelper.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/Main.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/Main.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/kotlin/random_tests.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/kotlin/random_tests.kt" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -44,6 +51,8 @@
     "Downloaded.Files.Path.Enabled": "false",
     "Gradle.Build PersonalFinanceTracker.executor": "Run",
     "Gradle.PersonalFinanceTracker [:MainKt.main()].executor": "Run",
+    "Gradle.RandomTests.testEncryptDecrypt.executor": "Run",
+    "Gradle.RandomTests.testGenerateKey.executor": "Run",
     "JAR Application.Unnamed.executor": "Run",
     "Kotlin.MainKt.executor": "Run",
     "Kotlin.Random_testsKt.executor": "Run",
@@ -90,13 +99,61 @@
       <recent name="org.example" />
     </key>
   </component>
-  <component name="RunManager" selected="Kotlin.MainKt">
+  <component name="RunManager" selected="Gradle.RandomTests.testEncryptDecrypt">
     <configuration name="Tracker" type="Application" factoryName="Application">
       <option name="MAIN_CLASS_NAME" value="org.example.MainKt" />
       <module name="PersonalFinanceTracker.main" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
+    </configuration>
+    <configuration name="RandomTests.testEncryptDecrypt" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+      <ExternalSystemSettings>
+        <option name="executionName" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$" />
+        <option name="externalSystemIdString" value="GRADLE" />
+        <option name="scriptParameters" value="" />
+        <option name="taskDescriptions">
+          <list />
+        </option>
+        <option name="taskNames">
+          <list>
+            <option value=":test" />
+            <option value="--tests" />
+            <option value="&quot;RandomTests.testEncryptDecrypt&quot;" />
+          </list>
+        </option>
+        <option name="vmOptions" />
+      </ExternalSystemSettings>
+      <ExternalSystemDebugServerProcess>false</ExternalSystemDebugServerProcess>
+      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
+      <DebugAllEnabled>false</DebugAllEnabled>
+      <RunAsTest>true</RunAsTest>
+      <method v="2" />
+    </configuration>
+    <configuration name="RandomTests.testGenerateKey" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+      <ExternalSystemSettings>
+        <option name="executionName" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$" />
+        <option name="externalSystemIdString" value="GRADLE" />
+        <option name="scriptParameters" value="" />
+        <option name="taskDescriptions">
+          <list />
+        </option>
+        <option name="taskNames">
+          <list>
+            <option value=":test" />
+            <option value="--tests" />
+            <option value="&quot;RandomTests.testGenerateKey&quot;" />
+          </list>
+        </option>
+        <option name="vmOptions" />
+      </ExternalSystemSettings>
+      <ExternalSystemDebugServerProcess>false</ExternalSystemDebugServerProcess>
+      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
+      <DebugAllEnabled>false</DebugAllEnabled>
+      <RunAsTest>true</RunAsTest>
+      <method v="2" />
     </configuration>
     <configuration name="Unnamed" type="JarApplication" nameIsGenerated="true">
       <option name="JAR_PATH" value="$PROJECT_DIR$/build/libs/PersonalFinanceTracker-1.0-SNAPSHOT.jar" />
@@ -136,6 +193,8 @@
     </configuration>
     <list>
       <item itemvalue="Application.Tracker" />
+      <item itemvalue="Gradle.RandomTests.testEncryptDecrypt" />
+      <item itemvalue="Gradle.RandomTests.testGenerateKey" />
       <item itemvalue="JAR Application.Unnamed" />
       <item itemvalue="Kotlin.MainKt" />
       <item itemvalue="Kotlin.Random_testsKt" />
@@ -143,6 +202,8 @@
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="Gradle.RandomTests.testEncryptDecrypt" />
+        <item itemvalue="Gradle.RandomTests.testGenerateKey" />
         <item itemvalue="Kotlin.Random_testsKt" />
       </list>
     </recent_temporary>
@@ -170,7 +231,7 @@
       <option name="presentableId" value="Default" />
       <updated>1738067903747</updated>
       <workItem from="1738067904734" duration="2641000" />
-      <workItem from="1738070629451" duration="28517000" />
+      <workItem from="1738070629451" duration="32439000" />
     </task>
     <task id="LOCAL-00001" summary="Personal Finance Tracker">
       <option name="closed" value="true" />
@@ -228,7 +289,15 @@
       <option name="project" value="LOCAL" />
       <updated>1738163520067</updated>
     </task>
-    <option name="localTasksCounter" value="8" />
+    <task id="LOCAL-00008" summary="set it to use mysql instead of csv and txt files">
+      <option name="closed" value="true" />
+      <created>1738164158443</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1738164158443</updated>
+    </task>
+    <option name="localTasksCounter" value="9" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">

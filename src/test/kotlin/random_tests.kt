@@ -1,6 +1,8 @@
-import org.example.BankingTracker
-import kotlin.test.Test
+import org.example.DBConnector
+import org.example.EncryptionHelper
 import org.junit.jupiter.api.Assertions.assertEquals
+import java.util.*
+import kotlin.test.Test
 
 class RandomTests {
 //    @Test
@@ -12,6 +14,29 @@ class RandomTests {
 
     fun isStrongPin(pin: String): Boolean {
         return pin.length >= 4 && pin.any { it.isDigit() }
+    }
+
+    @Test
+    fun testGenerateKey() {
+        val encryptionHelper = EncryptionHelper()
+        val key = encryptionHelper.generateAESKey()
+        val stringKey = Base64.getEncoder().encodeToString(key.encoded)
+        println("Generated Key: $stringKey")
+        val key2 = encryptionHelper.getKeyFromString(stringKey)
+        val stringKey2 = Base64.getEncoder().encodeToString(key2.encoded)
+        assertEquals(stringKey, stringKey2)
+    }
+
+    @Test
+    fun testEncryptDecrypt() {
+        val dbConnector = DBConnector()
+        val encryptionHelper = EncryptionHelper()
+        val key = encryptionHelper.getKeyFromString(dbConnector.getSecretKey(1)!!)
+        val data = "987654321"
+        val encryptedData = encryptionHelper.encryptText(data, key)
+        val decryptedData = encryptionHelper.decryptText(encryptedData, key)
+        println(encryptedData)
+        assertEquals(data, decryptedData)
     }
 
     @Test
