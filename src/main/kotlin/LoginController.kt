@@ -43,7 +43,7 @@ class LoginController {
     private lateinit var pinField: PasswordField
 
     // Inject AppDependencies
-    lateinit var dependencies: AppDependencies
+    private lateinit var dependencies: AppDependencies
 
     @FXML
     fun initialize(dependencies: AppDependencies) {

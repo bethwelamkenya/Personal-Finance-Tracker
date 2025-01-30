@@ -1,5 +1,6 @@
 package org.example
 
+import javafx.animation.ScaleTransition
 import javafx.event.ActionEvent
 import javafx.fxml.FXML
 import javafx.fxml.FXMLLoader
@@ -13,7 +14,7 @@ import javafx.scene.image.ImageView
 import javafx.scene.input.MouseEvent
 import javafx.scene.layout.HBox
 import javafx.stage.Stage
-import java.security.Key
+import javafx.util.Duration
 
 class CreateAccountController {
 
@@ -33,7 +34,7 @@ class CreateAccountController {
     lateinit var bankField: TextField
 
     @FXML
-    lateinit var bankName: Label
+    lateinit var bankLabel: Label
 
     @FXML
     lateinit var bankBox: HBox
@@ -48,22 +49,64 @@ class CreateAccountController {
     lateinit var holderBox: HBox
 
     @FXML
-    lateinit var numberField: TextField
+    lateinit var accountField: TextField
 
     @FXML
-    lateinit var numberLabel: Label
+    lateinit var accountLabel: Label
 
     @FXML
-    lateinit var numberBox: HBox
+    lateinit var accountBox: HBox
 
     @FXML
     lateinit var backImage: ImageView
 
-    lateinit var dependencies: AppDependencies
+    private lateinit var dependencies: AppDependencies
 
     @FXML
     fun initialize(dependencies: AppDependencies) {
         this.dependencies = dependencies
+
+        accountLabel.prefWidthProperty().bind(accountBox.widthProperty().multiply(0.4)) // 40%
+        accountField.prefWidthProperty().bind(accountBox.widthProperty().multiply(0.6)) // 60%
+
+        pinLabel.prefWidthProperty().bind(pinBox.widthProperty().multiply(0.4)) // 40%
+        pinField.prefWidthProperty().bind(pinBox.widthProperty().multiply(0.6)) // 60%
+
+        holderLabel.prefWidthProperty().bind(holderBox.widthProperty().multiply(0.4)) // 40%
+        holderField.prefWidthProperty().bind(holderBox.widthProperty().multiply(0.6)) // 60%
+
+        bankLabel.prefWidthProperty().bind(bankBox.widthProperty().multiply(0.4)) // 40%
+        bankField.prefWidthProperty().bind(bankBox.widthProperty().multiply(0.6)) // 60%
+
+        val scaleTransition = ScaleTransition(Duration.millis(300.0), createButton)
+        // Set up the hover effect
+        createButton.setOnMouseEntered {
+            scaleTransition.toX = 1.05
+            scaleTransition.toY = 1.05
+            scaleTransition.play()
+        }
+
+        // Reset the scale when the mouse exits
+        createButton.setOnMouseExited {
+            scaleTransition.toX = 1.0
+            scaleTransition.toY = 1.0
+            scaleTransition.play()
+        }
+
+        val scaleTransitionImage = ScaleTransition(Duration.millis(300.0), backImage)
+        // Set up the hover effect
+        backImage.setOnMouseEntered {
+            scaleTransitionImage.toX = 1.05
+            scaleTransitionImage.toY = 1.05
+            scaleTransitionImage.play()
+        }
+
+        // Reset the scale when the mouse exits
+        backImage.setOnMouseExited {
+            scaleTransitionImage.toX = 1.0
+            scaleTransitionImage.toY = 1.0
+            scaleTransitionImage.play()
+        }
     }
 
     fun back(mouseEvent: MouseEvent) {
@@ -81,8 +124,12 @@ class CreateAccountController {
         stage.isResizable = false  // Allow resizing for the main window
     }
 
+    private fun isStrongPin(pin: String): Boolean {
+        return pin.length >= 4 && pin.any { it.isDigit() }
+    }
+
     fun createAccount(actionEvent: ActionEvent) {
-        val accountNumber = numberField.text
+        val accountNumber = accountField.text
         val accountHolder = holderField.text
         val bankName = bankField.text
         val pin = pinField.text

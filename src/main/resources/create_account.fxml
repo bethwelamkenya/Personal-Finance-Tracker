@@ -27,10 +27,10 @@
             <Insets bottom="10.0" left="20.0" right="20.0" top="10.0" />
          </VBox.margin>
       </HBox>
-      <HBox fx:id="numberBox" alignment="CENTER_LEFT">
+      <HBox fx:id="accountBox" alignment="CENTER_LEFT">
          <children>
-            <Label fx:id="numberLabel" text="Account Number" />
-            <TextField fx:id="numberField" />
+            <Label fx:id="accountLabel" text="Account Number" />
+            <TextField fx:id="accountField" />
          </children>
          <VBox.margin>
             <Insets left="20.0" right="20.0" />
@@ -47,7 +47,7 @@
       </HBox>
       <HBox fx:id="bankBox" alignment="CENTER_LEFT">
          <children>
-            <Label fx:id="bankName" text="Bank Name" />
+            <Label fx:id="bankLabel" text="Bank Name" />
             <TextField fx:id="bankField" />
          </children>
          <VBox.margin>

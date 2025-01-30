@@ -25,9 +25,7 @@ class MainApp : Application() {
         val loader = FXMLLoader(javaClass.getResource("/login.fxml"))
         val root: Parent = loader.load()
 
-        val loginController: LoginController = loader.getController<LoginController>().apply {
-            this.dependencies = dependencies
-        }
+        val loginController: LoginController = loader.getController()
         loginController.initialize(dependencies)
         // Set up the stage
         val loginStage = Stage().apply {
