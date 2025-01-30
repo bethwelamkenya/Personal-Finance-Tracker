@@ -2,41 +2,41 @@ package org.example
 
 import javafx.application.Application
 import javafx.fxml.FXMLLoader
-import javafx.geometry.Insets
 import javafx.scene.Parent
 import javafx.scene.Scene
-import javafx.scene.control.Button
-import javafx.scene.control.Label
-import javafx.scene.control.PasswordField
-import javafx.scene.control.TextField
-import javafx.scene.layout.GridPane
 import javafx.stage.Stage
 
 class MainApp : Application() {
 
     override fun start(primaryStage: Stage) {
+        // Initialize dependencies
+//        val tracker = FinanceTracker()
+//        val bankingTracker = BankingTracker()
+//        val dbConnector = DBConnector()
+//        val savingsTracker = SavingsTracker()
+//        val encryptionHelper = EncryptionHelper()
+//        val key = encryptionHelper.getKeyFromString(dbConnector.getSecretKey(1)!!)
 
-        val tracker = FinanceTracker()
-        val bankingTracker = BankingTracker()
-        val dbConnector = DBConnector()
-        val savingsTracker = SavingsTracker()
-        val encryptionHelper = EncryptionHelper()
-
-        // 1. Generate a new AES key (you can store it securely in your app)
-        val key = encryptionHelper.getKeyFromString(dbConnector.getSecretKey(1)!!)
-
-        // Load the FXML file
+        // Initialize dependencies
+        val dependencies = AppDependencies().apply {
+            key = encryptionHelper.getKeyFromString(dbConnector.getSecretKey(1)!!)
+        }
+        // Load the FXML file and inject dependencies into the controller
         val loader = FXMLLoader(javaClass.getResource("/login.fxml"))
         val root: Parent = loader.load()
 
-        val controller = loader.getController<LoginController>()
-        controller.initialize(tracker, bankingTracker, dbConnector, savingsTracker, encryptionHelper, key)
+        val loginController: LoginController = loader.getController<LoginController>().apply {
+            this.dependencies = dependencies
+        }
+        loginController.initialize(dependencies)
+        // Set up the stage
+        val loginStage = Stage().apply {
+            title = "Personal Finance Tracker - Login"
+            isResizable = false
+            scene = Scene(root)
+        }
 
-        // Set up the scene
-        val scene = Scene(root, 300.0, 200.0)
-        primaryStage.title = "Personal Finance Tracker - Login"
-        primaryStage.scene = scene
-        primaryStage.show()
+        loginStage.show()
     }
 }
 

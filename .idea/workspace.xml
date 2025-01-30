@@ -4,7 +4,20 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="cfd0ce99-2f6e-41ba-9ff7-fa2da55a18b5" name="Changes" comment="set it to use gui instead of cli" />
+    <list default="true" id="cfd0ce99-2f6e-41ba-9ff7-fa2da55a18b5" name="Changes" comment="set it to use gui instead of cli">
+      <change afterPath="$PROJECT_DIR$/src/main/kotlin/AppDependencies.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/kotlin/HomeController.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/home.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/AccountViewController.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/AccountViewController.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/CreateAccountController.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/CreateAccountController.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/LoginController.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/LoginController.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/MainApp.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/MainApp.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/create_account.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/create_account.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/login.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/login.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/styles.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/styles.css" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -72,7 +85,7 @@
     "git-widget-placeholder": "master",
     "kotlin-language-version-configured": "true",
     "last_directory_selection": "D:/Admin/Documents/Idea Projects/PersonalFinanceTracker/src/main/kotlin",
-    "last_opened_file_path": "C:/Users/karan/AppData/Local/SceneBuilder/SceneBuilder.exe",
+    "last_opened_file_path": "D:/Admin/Downloads/continue-intellij-extension-0.0.83.zip",
     "list.type.of.created.stylesheet": "CSS",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
@@ -83,7 +96,7 @@
     "project.structure.last.edited": "SDKs",
     "project.structure.proportion": "0.15",
     "project.structure.side.proportion": "0.35977012",
-    "settings.editor.selected.configurable": "reference.settingsdialog.project.gradle",
+    "settings.editor.selected.configurable": "preferences.pluginManager",
     "show.migrate.to.gradle.popup": "false",
     "vue.rearranger.settings.migration": "true"
   },
@@ -247,6 +260,7 @@
       <workItem from="1738067904734" duration="2641000" />
       <workItem from="1738070629451" duration="37432000" />
       <workItem from="1738175223839" duration="6112000" />
+      <workItem from="1738239667616" duration="12816000" />
     </task>
     <task id="LOCAL-00001" summary="Personal Finance Tracker">
       <option name="closed" value="true" />

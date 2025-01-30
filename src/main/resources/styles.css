@@ -31,12 +31,14 @@
     -fx-text-fill: white; /* White text */
     -fx-border-radius: 5px;
     -fx-padding: 10px 20px;
-    /*-fx-animated: background-color 0.5s ease-in-out;;*/
 }
 
 /* Hover effect for buttons */
 .button:hover {
     -fx-background-color: linear-gradient(to right, #6DC7FF, #E6ABFF);
+    -fx-scale-x: 1.05;
+    -fx-scale-y: 1.05;
+    -fx-cursor: hand;
 }
 
 /* Style for the grid pane */
@@ -60,11 +62,14 @@
 
 #dontHaveAccount {
     -fx-font-weight: bold;
-    -fx-text-fill: #333333; /* Dark gray text */
+    -fx-fill: #333333;
+    /*-fx-text-fill: #333333; !* Dark gray text *!*/
     -fx-padding: 10px 20px; /* Margin bottom */
     -fx-font-size: 14px;
 }
 
 #dontHaveAccount:hover {
-    -fx-text-fill: #1A6DFF; /* Blue text on hover */
+    /*-fx-text-fill: #1A6DFF; !* Blue text on hover *!*/
+    -fx-cursor: hand;
+    -fx-fill: linear-gradient(from 0% 0% to 100% 0%, #1A6DFF, #C822FF);
 }

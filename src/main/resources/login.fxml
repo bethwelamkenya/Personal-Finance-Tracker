@@ -6,37 +6,34 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.PasswordField?>
 <?import javafx.scene.control.TextField?>
-<?import javafx.scene.layout.ColumnConstraints?>
-<?import javafx.scene.layout.GridPane?>
-<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Text?>
 
-<VBox alignment="CENTER" spacing="10" stylesheets="@styles.css" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.LoginController">
+<VBox alignment="CENTER" spacing="10" stylesheets="@styles.css" xmlns="http://javafx.com/javafx/20.0.1"
+      xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.LoginController">
     <Text text="Personal Finance Tracker">
-      <styleClass>
-         <String fx:value="title" />
-         <String fx:value="gradient-text" />
-      </styleClass></Text>
-    <GridPane>
-        <padding>
-            <Insets bottom="10" left="10" right="10" top="10" />
-        </padding>
-        <Label text="Account Number:" GridPane.columnIndex="0" GridPane.rowIndex="0" />
-        <TextField fx:id="accountNumberField" GridPane.columnIndex="1" GridPane.rowIndex="0" />
-        <Label text="PIN:" GridPane.columnIndex="0" GridPane.rowIndex="1" />
-        <PasswordField fx:id="pinField" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-        <Text fx:id="dontHaveAccount" onMouseClicked="#createAccount" strokeType="OUTSIDE" strokeWidth="0.0" text="Dont have an account?" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-        <Button onAction="#handleLogin" text="Log In" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-      <columnConstraints>
-         <ColumnConstraints />
-         <ColumnConstraints />
-      </columnConstraints>
-      <rowConstraints>
-         <RowConstraints />
-         <RowConstraints />
-         <RowConstraints />
-         <RowConstraints />
-      </rowConstraints>
-    </GridPane>
+        <styleClass>
+            <String fx:value="title"/>
+            <String fx:value="gradient-text"/>
+        </styleClass>
+        <VBox.margin>
+            <Insets bottom="20.0" left="20.0" right="20.0" top="20.0"/>
+        </VBox.margin>
+    </Text>
+    <HBox alignment="CENTER_LEFT">
+        <Label text="Account Number:"/>
+        <TextField fx:id="accountNumberField"/>
+    </HBox>
+    <HBox alignment="CENTER">
+        <Label text="PIN:"/>
+        <PasswordField fx:id="pinField"/>
+    </HBox>
+    <AnchorPane>
+        <Text fx:id="dontHaveAccount" onMouseClicked="#createAccount" strokeType="OUTSIDE" strokeWidth="0.0"
+              text="Dont have an account? Create Account" AnchorPane.bottomAnchor="10.0" AnchorPane.rightAnchor="20.0"
+              AnchorPane.topAnchor="10.0"/>
+    </AnchorPane>
+    <Button fx:id="loginButton" onAction="#handleLogin" text="Log In"/>
 </VBox>
