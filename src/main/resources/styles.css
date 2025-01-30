@@ -29,7 +29,7 @@
     -fx-font-weight: bold;
     -fx-background-color: linear-gradient(to right, #1A6DFF, #C822FF); /* Gradient background */
     -fx-text-fill: white; /* White text */
-    -fx-border-radius: 5px;
+    -fx-border-radius: 10px;
     -fx-padding: 10px 20px;
 }
 
@@ -53,6 +53,7 @@
     -fx-font-weight: bold;
     -fx-alignment: center;
     -fx-padding: 0 0 20px 0; /* Margin bottom */
+    -fx-fill: linear-gradient(from 0% 0% to 100% 0%, #1A6DFF, #C822FF);
 }
 
 /* Gradient effect for titles */
@@ -60,7 +61,7 @@
     -fx-fill: linear-gradient(from 0% 0% to 100% 0%, #1A6DFF, #C822FF);
 }
 
-#dontHaveAccount {
+.clickableText {
     -fx-font-weight: bold;
     -fx-fill: #333333;
     /*-fx-text-fill: #333333; !* Dark gray text *!*/
@@ -68,8 +69,17 @@
     -fx-font-size: 14px;
 }
 
-#dontHaveAccount:hover {
+.clickableText:hover {
     /*-fx-text-fill: #1A6DFF; !* Blue text on hover *!*/
     -fx-cursor: hand;
     -fx-fill: linear-gradient(from 0% 0% to 100% 0%, #1A6DFF, #C822FF);
+}
+
+.clickableImage {
+    -fx-cursor: hand;
+}
+
+.clickableImage:hover {
+    -fx-scale-x: 1.1;
+    -fx-scale-y: 1.1;
 }

@@ -8,14 +8,28 @@ import javafx.scene.Node
 import javafx.scene.Parent
 import javafx.scene.Scene
 import javafx.scene.control.Button
+import javafx.scene.control.Label
 import javafx.scene.control.PasswordField
 import javafx.scene.control.TextField
 import javafx.scene.input.MouseEvent
+import javafx.scene.layout.HBox
 import javafx.scene.text.Text
 import javafx.stage.Stage
 import javafx.util.Duration
 
 class LoginController {
+    @FXML
+    lateinit var pinLabel: Label
+
+    @FXML
+    lateinit var accountLabel: Label
+
+    @FXML
+    lateinit var pinHBox: HBox
+
+    @FXML
+    lateinit var accountHBox: HBox
+
     @FXML
     lateinit var dontHaveAccount: Text
 
@@ -34,16 +48,12 @@ class LoginController {
     @FXML
     fun initialize(dependencies: AppDependencies) {
         this.dependencies = dependencies
-        // Access dependencies via the AppDependencies instance
-        val tracker = this.dependencies.tracker
-        val bankingTracker = this.dependencies.bankingTracker
-        val dbConnector = this.dependencies.dbConnector
-        val key = this.dependencies.key
 
-        // Check if properties are initialized
-//        if (!tracker.isInitialized || !::bankingTracker.isInitialized || !::dbConnector.isInitialized) {
-//            throw IllegalStateException("Dependencies are not initialized!")
-//        }
+        accountLabel.prefWidthProperty().bind(accountHBox.widthProperty().multiply(0.4)) // 40%
+        accountNumberField.prefWidthProperty().bind(accountHBox.widthProperty().multiply(0.6)) // 60%
+
+        pinLabel.prefWidthProperty().bind(pinHBox.widthProperty().multiply(0.4)) // 40%
+        pinField.prefWidthProperty().bind(pinHBox.widthProperty().multiply(0.6)) // 60%
 
         val scaleTransition = ScaleTransition(Duration.millis(300.0), loginButton)
         // Set up the hover effect
