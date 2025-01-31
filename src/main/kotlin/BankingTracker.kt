@@ -101,7 +101,7 @@ class BankingTracker {
         return true
     }
 
-    fun transferFunds(receiver: BankAccount, amount: Double, dbConnector: DBConnector, tracker: FinanceTracker) {
+    fun transferFunds(receiver: BankAccount, amount: Double, dbConnector: DBConnector, tracker: FinanceTracker, description: String = "Transfer") {
         try {
             activeAccount?.withdraw(amount, "Transfer", tracker, dbConnector)
             receiver.deposit(amount, "Transfer", tracker, dbConnector)

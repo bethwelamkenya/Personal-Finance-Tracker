@@ -236,9 +236,9 @@ fun printTrackerMenu() {
     println("\nWelcome to the Personal Finance Tracker!")
     println("1. Deposit") // done
     println("2. Withdraw") // done
-    println("3. Transfer Money")
+    println("3. Transfer Money") // done
     println("4. View Transactions")
-    println("5. Export Transactions")
+    println("5. Export Transactions") // done
     println("6. Back")
     println("Enter your choice:")
 }

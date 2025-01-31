@@ -5,3 +5,6 @@ Date,Type,Description,Amount
 2025-01-29,Withdrawal,Savings Deposit,10000.0
 2025-01-29,Deposit,Savings Withdrawal,3000.0
 2025-01-29,Withdrawal,Rent,3000.0
+2025-01-31,Deposit,Family Charity,2000.0
+2025-01-31,Deposit,Family Charity,2000.0
+2025-01-31,Withdrawal,Transfer,1000.0

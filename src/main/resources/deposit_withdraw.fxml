@@ -8,11 +8,11 @@
 <?import javafx.scene.layout.VBox?>
 
 
-<VBox alignment="CENTER" minHeight="290.0" minWidth="345.0" spacing="20.0" stylesheets="@styles.css" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.DepositWithdrawController">
+<VBox alignment="CENTER" spacing="10.0" stylesheets="@styles.css" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.DepositWithdrawController">
    <children>
       <Label fx:id="messageLabel" styleClass="form-label">
          <VBox.margin>
-            <Insets bottom="10.0" left="20.0" right="20.0" top="10.0" />
+            <Insets left="20.0" right="20.0" top="10.0" />
          </VBox.margin>
       </Label>
       <HBox fx:id="amountBox" alignment="CENTER">

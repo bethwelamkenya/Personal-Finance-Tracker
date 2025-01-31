@@ -21,7 +21,7 @@ class FinanceTracker {
         }
     }
 
-    fun exportTransactionsForAccount(account: BankAccount, dbConnector: DBConnector, encryptionHelper: EncryptionHelper, key: Key) {
+    fun exportTransactionsForAccount(account: BankAccount, dbConnector: DBConnector, encryptionHelper: EncryptionHelper, key: Key) : String{
         val transactions = dbConnector.getTransactionsForAccount(account.getAccountNumber()) as ArrayList<Transaction>
         transactions.sortBy { it.date }
         val fileName = "${encryptionHelper.decryptText(account.getAccountNumber(), key)}_transactions.csv"
@@ -33,6 +33,7 @@ class FinanceTracker {
             }
         }
         println("Transactions exported to $fileName")
+        return File(fileName).absolutePath
     }
 
 }

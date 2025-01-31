@@ -16,7 +16,7 @@
          <Insets bottom="10.0" left="20.0" right="20.0" top="10.0" />
       </VBox.margin></Text>
     <HBox fx:id="accountHBox" alignment="CENTER_LEFT">
-        <Label fx:id="accountLabel" styleClass="form-label" text="Account Number:" />
+        <Label fx:id="accountLabel" styleClass="form-label" text="Account:" />
         <TextField fx:id="accountNumberField" />
       <VBox.margin>
          <Insets left="20.0" right="20.0" />

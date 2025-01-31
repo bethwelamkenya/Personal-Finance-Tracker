@@ -130,6 +130,7 @@ class DBConnector {
                     while (rs.next()) {
                         transactions.add(
                             Transaction(
+                                id = rs.getInt("id"),
                                 account = rs.getString("account"),
                                 date = rs.getDate("date").toLocalDate(),
                                 type = TransactionType.valueOf(rs.getString("type")),

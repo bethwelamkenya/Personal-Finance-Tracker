@@ -6,6 +6,8 @@ import javafx.fxml.FXMLLoader
 import javafx.scene.Parent
 import javafx.scene.Scene
 import javafx.scene.control.Button
+import javafx.scene.control.CheckBox
+import javafx.scene.control.Label
 import javafx.scene.text.Text
 import javafx.stage.Modality
 import javafx.stage.Stage
@@ -14,22 +16,83 @@ import kotlin.system.exitProcess
 
 class HomeController {
     @FXML
+    lateinit var exportTransactionsButton: Button
+
+    @FXML
+    lateinit var viewTransactionsButton: Button
+
+    @FXML
+    lateinit var showBalance: CheckBox
+
+    @FXML
+    lateinit var amountText: Text
+
+    @FXML
     lateinit var withdrawButton: Button
 
     @FXML
     lateinit var depositButton: Button
 
     @FXML
-    lateinit var accountText: Text
+    lateinit var accountText: Label
 
     private lateinit var dependencies: AppDependencies
+    private lateinit var account: BankAccount
 
     @FXML
     fun initialize(dependencies: AppDependencies) {
         this.dependencies = dependencies
-        accountText.text = dependencies.encryptionHelper.decryptText(
-            dependencies.bankingTracker.getActiveAccount()!!.getAccountNumber(), dependencies.key
-        )
+        account = dependencies.bankingTracker.getActiveAccount()!!
+        accountText.text = dependencies.encryptionHelper.decryptText(account.getAccountNumber(), dependencies.key)
+        amountText.text = "****"
+        showBalance.isSelected = false
+
+        showBalance.setOnAction {
+            if (showBalance.isSelected) {
+                amountText.text = account.getBalance().toString() + " " + account.getCurrency()
+            } else {
+                amountText.text = "****"
+            }
+        }
+
+        exportTransactionsButton.setOnAction {
+            val fileName = dependencies.tracker.exportTransactionsForAccount(
+                account,
+                dependencies.dbConnector,
+                dependencies.encryptionHelper,
+                dependencies.key
+            )
+
+            val loader = FXMLLoader(javaClass.getResource("/alert_popup.fxml"))
+            val root: Parent = loader.load()
+            val controller: AlertPopupController = loader.getController()
+
+            val popupStage = Stage().apply {
+                initOwner(owner)
+                initModality(Modality.APPLICATION_MODAL)
+                title = "Alert"
+                isResizable = false
+                scene = Scene(root)
+            }
+            controller.initialize("Transactions exported to $fileName", popupStage)
+            popupStage.showAndWait()
+        }
+
+        viewTransactionsButton.setOnAction {
+            val loader = FXMLLoader(javaClass.getResource("/show_transactions.fxml"))
+            val root: Parent = loader.load()
+            val controller: ShowTransactionsController = loader.getController()
+
+            val popupStage = Stage().apply {
+                initOwner(owner)
+                initModality(Modality.APPLICATION_MODAL)
+                title = "Transactions"
+                isResizable = true
+                scene = Scene(root)
+            }
+            controller.initialize(dependencies, popupStage)
+            popupStage.showAndWait()
+        }
     }
 
     fun changePin(actionEvent: ActionEvent) {
@@ -146,6 +209,22 @@ class HomeController {
             dependencies.bankingTracker.withdraw(amount, description, dependencies.tracker, dependencies.dbConnector)
             popupStage.close()
         }
+        popupStage.showAndWait()
+    }
+
+    fun sendMoney(actionEvent: ActionEvent) {
+        val loader = FXMLLoader(javaClass.getResource("/send_money.fxml"))
+        val root: Parent = loader.load()
+        val controller: SendMoneyController = loader.getController()
+
+        val popupStage = Stage().apply {
+            initOwner(owner)
+            initModality(Modality.APPLICATION_MODAL)
+            title = "Send Money"
+            isResizable = false
+            scene = Scene(root)
+        }
+        controller.initialize(dependencies, popupStage)
         popupStage.showAndWait()
     }
 }
