@@ -18,15 +18,15 @@ fun main() {
 
 fun printBankingMenu() {
     println("\nWelcome to the Banking Application!")
-    println("1. Log In to Account")
+    println("1. Log In to Account") // done
     println("2. View Account")
     println("3. Transact Money")
     println("4. Savings Account")
-    println("5. Change Pin")
-    println("6. Log Out")
-    println("7. Add Bank Account")
-    println("8. Delete Bank Account")
-    println("9. Exit")
+    println("5. Change Pin") // done
+    println("6. Log Out") // done
+    println("7. Add Bank Account") // done
+    println("8. Delete Bank Account") // done
+    println("9. Exit") // done
     println("Enter your choice:")
 }
 
@@ -234,8 +234,8 @@ fun logOut(bankingTracker: BankingTracker) {
 
 fun printTrackerMenu() {
     println("\nWelcome to the Personal Finance Tracker!")
-    println("1. Deposit")
-    println("2. Withdraw")
+    println("1. Deposit") // done
+    println("2. Withdraw") // done
     println("3. Transfer Money")
     println("4. View Transactions")
     println("5. Export Transactions")

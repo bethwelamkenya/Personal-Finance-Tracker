@@ -11,7 +11,6 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Text?>
 
-
 <VBox alignment="TOP_CENTER" spacing="10.0" stylesheets="@styles.css" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.CreateAccountController">
    <children>
       <HBox alignment="CENTER" spacing="20.0">
@@ -29,7 +28,7 @@
       </HBox>
       <HBox fx:id="accountBox" alignment="CENTER_LEFT">
          <children>
-            <Label fx:id="accountLabel" text="Account Number" />
+            <Label fx:id="accountLabel" styleClass="form-label" text="Account Number" />
             <TextField fx:id="accountField" />
          </children>
          <VBox.margin>
@@ -38,7 +37,10 @@
       </HBox>
       <HBox fx:id="holderBox" alignment="CENTER_LEFT">
          <children>
-            <Label fx:id="holderLabel" text="Account Holder" />
+            <Label fx:id="holderLabel" styleClass="form-label" text="Account Holder">
+               <opaqueInsets>
+                  <Insets />
+               </opaqueInsets></Label>
             <TextField fx:id="holderField" />
          </children>
          <VBox.margin>
@@ -47,7 +49,7 @@
       </HBox>
       <HBox fx:id="bankBox" alignment="CENTER_LEFT">
          <children>
-            <Label fx:id="bankLabel" text="Bank Name" />
+            <Label fx:id="bankLabel" styleClass="form-label" text="Bank Name" />
             <TextField fx:id="bankField" />
          </children>
          <VBox.margin>
@@ -56,7 +58,7 @@
       </HBox>
       <HBox fx:id="pinBox" alignment="CENTER_LEFT">
          <children>
-            <Label fx:id="pinLabel" text="Pin" />
+            <Label fx:id="pinLabel" styleClass="form-label" text="Pin" />
             <PasswordField fx:id="pinField" />
          </children>
          <VBox.margin>

@@ -1,23 +1,31 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Menu?>
 <?import javafx.scene.control.MenuBar?>
 <?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.HomeController">
+<VBox alignment="TOP_CENTER" stylesheets="@styles.css" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.HomeController">
    <children>
       <MenuBar AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
         <menus>
-          <Menu mnemonicParsing="false" text="File">
+          <Menu mnemonicParsing="false" styleClass="menu" text="File">
             <items>
-              <MenuItem mnemonicParsing="false" text="Close" />
+                  <MenuItem mnemonicParsing="false" onAction="#logOut" text="Log Out" />
+              <MenuItem mnemonicParsing="false" onAction="#closeApp" text="Close" />
             </items>
           </Menu>
           <Menu mnemonicParsing="false" text="Edit">
             <items>
-              <MenuItem mnemonicParsing="false" text="Delete" />
+                  <MenuItem mnemonicParsing="false" onAction="#changePin" text="Change Pin" />
+              <MenuItem mnemonicParsing="false" onAction="#deleteAccount" text="Delete Account" />
             </items>
           </Menu>
           <Menu mnemonicParsing="false" text="Help">
@@ -27,6 +35,29 @@
           </Menu>
         </menus>
       </MenuBar>
-      <Text fx:id="accountText" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="20.0" />
+      <Text fx:id="accountText" strokeType="OUTSIDE" strokeWidth="0.0" text="Text">
+         <VBox.margin>
+            <Insets bottom="10.0" left="20.0" right="20.0" top="10.0" />
+         </VBox.margin>
+      </Text>
+      <GridPane alignment="CENTER" hgap="10.0" vgap="10.0">
+        <columnConstraints>
+          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+        </columnConstraints>
+        <rowConstraints>
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints />
+        </rowConstraints>
+         <children>
+            <Button mnemonicParsing="false" text="Send Money" />
+            <Button fx:id="depositButton" mnemonicParsing="false" onAction="#depositMoney" prefHeight="40.0" prefWidth="130.0" text="Deposit" GridPane.columnIndex="1" />
+            <Button fx:id="withdrawButton" mnemonicParsing="false" onAction="#withdrawMoney" text="Withdraw" GridPane.rowIndex="1" />
+            <Button mnemonicParsing="false" text="View Transactions" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+         </children>
+         <VBox.margin>
+            <Insets bottom="20.0" left="20.0" right="20.0" top="10.0" />
+         </VBox.margin>
+      </GridPane>
    </children>
-</AnchorPane>
+</VBox>
