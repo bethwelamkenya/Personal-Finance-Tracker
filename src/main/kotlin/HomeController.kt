@@ -227,4 +227,19 @@ class HomeController {
         controller.initialize(dependencies, popupStage)
         popupStage.showAndWait()
     }
+
+    fun savingsAccount(actionEvent: ActionEvent) {
+        val stage = (accountText.scene.window as Stage)
+        val loader = FXMLLoader(javaClass.getResource("/savings.fxml"))
+
+        val root: Parent = loader.load()
+        val scene = Scene(root)
+
+        val controller: SavingsController = loader.getController()
+        controller.initialize(dependencies)
+
+        stage.title = "Personal Finance Tracker - Savings"
+        stage.scene = scene
+        stage.isResizable = false  // Allow resizing for the main window
+    }
 }

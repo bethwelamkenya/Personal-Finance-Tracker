@@ -349,11 +349,11 @@ fun exportTransactions(tracker: FinanceTracker, bankingTracker: BankingTracker, 
 
 fun printSavingsMenu() {
     println("\nWelcome to the Savings Menu!")
-    println("1. Create Savings Goal")
+    println("1. Create Savings Goal") // done
     println("2. View Savings Goals")
-    println("3. Deposit into Savings")
-    println("4. Withdraw from Savings")
-    println("5. Back")
+    println("3. Deposit into Savings") // done
+    println("4. Withdraw from Savings") // done
+    println("5. Back") // done
     println("Enter your choice:")
 }
 

@@ -39,14 +39,15 @@ class SavingsTracker {
         goalId: Int,
         amount: Double,
         tracker: FinanceTracker,
-        dbConnector: DBConnector
+        dbConnector: DBConnector,
+        description: String = "Savings Deposit"
     ) {
         val account = bankingTracker.getActiveAccount()!!
         if (account.getBalance() >= amount) {
             if (dbConnector.depositToSavings(account.getAccountNumber(), goalId, amount)) {
                 bankingTracker.withdraw(
                     amount,
-                    "Savings Deposit",
+                    description,
                     tracker,
                     dbConnector
                 )
@@ -64,13 +65,14 @@ class SavingsTracker {
         goalId: Int,
         amount: Double,
         tracker: FinanceTracker,
-        dbConnector: DBConnector
+        dbConnector: DBConnector,
+        description: String = "Savings Withdrawal"
     ) {
         val account = bankingTracker.getActiveAccount()!!
         if (dbConnector.withdrawFromSavings(account.getAccountNumber(), goalId, amount)) {
             bankingTracker.deposit(
                 amount,
-                "Savings Withdrawal",
+                description,
                 tracker,
                 dbConnector
             )

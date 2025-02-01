@@ -5,25 +5,20 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="cfd0ce99-2f6e-41ba-9ff7-fa2da55a18b5" name="Changes" comment="set it to use gui instead of cli">
-      <change afterPath="$PROJECT_DIR$/src/main/kotlin/ShowTransactionsController.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/show_transactions.fxml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/kotlin/CreateGoalController.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/kotlin/SavingsController.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/kotlin/ShowSavingsAccountsController.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/create_goal.fxml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/savings.fxml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/show_savings_accounts.fxml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/123456789_transactions.csv" beforeDir="false" afterPath="$PROJECT_DIR$/123456789_transactions.csv" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/AlertPopupController.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/AlertPopupController.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/BankingTracker.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/BankingTracker.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/DBConnector.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/DBConnector.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/FinanceTracker.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/FinanceTracker.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/DepositWithdrawController.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/DepositWithdrawController.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/kotlin/HomeController.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/HomeController.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/kotlin/Main.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/Main.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/MainApp.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/MainApp.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/SendMoneyController.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/SendMoneyController.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/Transaction.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/Transaction.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/alert_popup.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/alert_popup.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/SavingsTracker.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/SavingsTracker.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/change_pin_popup.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/change_pin_popup.fxml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/deposit_withdraw.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/deposit_withdraw.fxml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/home.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/home.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/login.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/login.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/send_money.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/send_money.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/styles.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/styles.css" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -269,7 +264,8 @@
       <workItem from="1738175223839" duration="6112000" />
       <workItem from="1738239667616" duration="18597000" />
       <workItem from="1738317539672" duration="685000" />
-      <workItem from="1738319779716" duration="14744000" />
+      <workItem from="1738319779716" duration="15419000" />
+      <workItem from="1738354111266" duration="6963000" />
     </task>
     <task id="LOCAL-00001" summary="Personal Finance Tracker">
       <option name="closed" value="true" />
@@ -399,7 +395,15 @@
       <option name="project" value="LOCAL" />
       <updated>1738326957969</updated>
     </task>
-    <option name="localTasksCounter" value="17" />
+    <task id="LOCAL-00017" summary="set it to use gui instead of cli">
+      <option name="closed" value="true" />
+      <created>1738334721477</created>
+      <option name="number" value="00017" />
+      <option name="presentableId" value="LOCAL-00017" />
+      <option name="project" value="LOCAL" />
+      <updated>1738334721477</updated>
+    </task>
+    <option name="localTasksCounter" value="18" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">

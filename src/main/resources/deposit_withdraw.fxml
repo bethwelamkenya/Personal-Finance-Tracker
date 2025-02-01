@@ -7,7 +7,6 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-
 <VBox alignment="CENTER" spacing="10.0" stylesheets="@styles.css" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.DepositWithdrawController">
    <children>
       <Label fx:id="messageLabel" styleClass="form-label">
@@ -15,7 +14,7 @@
             <Insets left="20.0" right="20.0" top="10.0" />
          </VBox.margin>
       </Label>
-      <HBox fx:id="amountBox" alignment="CENTER">
+      <HBox fx:id="amountBox" alignment="CENTER_RIGHT">
          <children>
             <Label fx:id="amountLabel" styleClass="form-label" text="Amount" />
             <TextField fx:id="amountField" />
@@ -24,7 +23,7 @@
             <Insets left="20.0" right="20.0" />
          </VBox.margin>
       </HBox>
-      <HBox fx:id="descriptionBox" alignment="CENTER">
+      <HBox fx:id="descriptionBox" alignment="CENTER_RIGHT">
          <children>
             <Label fx:id="descriptionLabel" styleClass="form-label" text="Description" />
             <TextField fx:id="descriptionField" />

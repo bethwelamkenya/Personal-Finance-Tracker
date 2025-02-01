@@ -9,7 +9,6 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Text?>
 
-
 <VBox alignment="CENTER" spacing="20.0" stylesheets="@styles.css" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.ChangePinPopUpController">
    <children>
       <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="title" text="Change Pin">
@@ -34,7 +33,7 @@
             <PasswordField fx:id="newPinField" />
          </children>
          <VBox.margin>
-            <Insets left="20.0" right="20.0" />
+            <Insets left="25.0" right="20.0" />
          </VBox.margin>
       </HBox>
       <Button fx:id="changePinButton" mnemonicParsing="false" onAction="#changePin" text="Change Pin" />

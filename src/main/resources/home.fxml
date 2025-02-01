@@ -60,8 +60,9 @@
             <Button mnemonicParsing="false" onAction="#sendMoney" text="Send Money" />
             <Button fx:id="depositButton" mnemonicParsing="false" onAction="#depositMoney" text="Deposit" GridPane.columnIndex="1" />
             <Button fx:id="withdrawButton" mnemonicParsing="false" onAction="#withdrawMoney" text="Withdraw" GridPane.rowIndex="1" />
-            <Button fx:id="viewTransactionsButton" mnemonicParsing="false" text="View Transactions" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-            <Button fx:id="exportTransactionsButton" mnemonicParsing="false" text="Export Transactions" GridPane.rowIndex="2" />
+            <Button mnemonicParsing="false" onAction="#savingsAccount" text="Savings Account" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+            <Button fx:id="viewTransactionsButton" mnemonicParsing="false" text="View Transactions" GridPane.rowIndex="2" />
+            <Button fx:id="exportTransactionsButton" mnemonicParsing="false" text="Export Transactions" GridPane.columnIndex="1" GridPane.rowIndex="2" />
          </children>
          <VBox.margin>
             <Insets bottom="20.0" left="20.0" right="20.0" top="10.0" />

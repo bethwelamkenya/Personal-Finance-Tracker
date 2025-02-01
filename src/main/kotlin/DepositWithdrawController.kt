@@ -37,11 +37,11 @@ class DepositWithdrawController {
         messageLabel.text = message
         actionButton.text = button
 
-        amountLabel.prefWidthProperty().bind(amountBox.widthProperty().multiply(0.4)) // 40%
-        amountField.prefWidthProperty().bind(amountBox.widthProperty().multiply(0.6)) // 60%
-
-        descriptionLabel.prefWidthProperty().bind(descriptionBox.widthProperty().multiply(0.4)) // 40%
-        descriptionField.prefWidthProperty().bind(descriptionBox.widthProperty().multiply(0.6)) // 60%
+//        amountLabel.prefWidthProperty().bind(amountBox.widthProperty().multiply(0.4)) // 40%
+//        amountField.prefWidthProperty().bind(amountBox.widthProperty().multiply(0.6)) // 60%
+//
+//        descriptionLabel.prefWidthProperty().bind(descriptionBox.widthProperty().multiply(0.4)) // 40%
+//        descriptionField.prefWidthProperty().bind(descriptionBox.widthProperty().multiply(0.6)) // 60%
 
         val textFormatter = TextFormatter<String> { change ->
             if (change.controlNewText.matches(Regex("\\d*\\.?\\d*"))) change else null
