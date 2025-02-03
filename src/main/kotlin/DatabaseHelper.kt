@@ -13,31 +13,53 @@ object DatabaseHelper {
         }
     }
 
-//    private fun createTables() {
-//        use { connection ->
-//            connection.createStatement().use { stmt ->
-//                stmt.executeUpdate(
-//                    """
-//                    CREATE TABLE IF NOT EXISTS bank_accounts (
-//                        account_number VARCHAR(255) PRIMARY KEY,
-//                        account_holder VARCHAR(255) NOT NULL,
-//                        bank_name VARCHAR(255) NOT NULL,
-//                        balance DOUBLE NOT NULL,
-//                        pin VARCHAR(255) NOT NULL
-//                    );
-//
-//                    CREATE TABLE IF NOT EXISTS transactions (
-//                        id INT PRIMARY KEY AUTO_INCREMENT,
-//                        account VARCHAR(255) NOT NULL,
-//                        date DATE NOT NULL,
-//                        type VARCHAR(255) NOT NULL,
-//                        description TEXT,
-//                        amount DOUBLE NOT NULL,
-//                        FOREIGN KEY (account) REFERENCES bank_accounts (account_number)
-//                    );
-//                    """.trimIndent()
-//                )
-//            }
-//        }
-//    }
+    private fun createTables(dbConnection: Connection) {
+        dbConnection.use { connection ->
+            connection.createStatement().use { stmt ->
+                stmt.executeUpdate(
+                    """
+                    CREATE TABLE `bank_accounts` (
+                      `account_number` varchar(255) NOT NULL,
+                      `account_holder` varchar(255) NOT NULL,
+                      `bank_name` varchar(255) NOT NULL,
+                      `balance` double NOT NULL,
+                      `pin` varchar(255) NOT NULL,
+                      `currency` varchar(3) NOT NULL DEFAULT 'USD',
+                      PRIMARY KEY (`account_number`)
+                    ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+                    
+                    CREATE TABLE `transactions` (
+                      `id` int NOT NULL AUTO_INCREMENT,
+                      `account` varchar(255) NOT NULL,
+                      `date` date NOT NULL,
+                      `type` varchar(255) NOT NULL,
+                      `description` text,
+                      `amount` double NOT NULL,
+                      `currency` varchar(3) NOT NULL DEFAULT 'USD',
+                      PRIMARY KEY (`id`),
+                      KEY `transactions_ibfk_1` (`account`),
+                      CONSTRAINT `transactions_ibfk_1` FOREIGN KEY (`account`) REFERENCES `bank_accounts` (`account_number`)
+                    ) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+                    
+                    CREATE TABLE `savings_accounts` (
+                      `id` int NOT NULL AUTO_INCREMENT,
+                      `account_number` varchar(255) NOT NULL,
+                      `goal_name` varchar(50) NOT NULL,
+                      `target_amount` double NOT NULL,
+                      `saved_amount` double NOT NULL DEFAULT '0',
+                      PRIMARY KEY (`id`),
+                      KEY `account_number` (`account_number`),
+                      CONSTRAINT `savings_accounts_ibfk_1` FOREIGN KEY (`account_number`) REFERENCES `bank_accounts` (`account_number`)
+                    ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+                    
+                    CREATE TABLE `secure_keys` (
+                      `id` int NOT NULL AUTO_INCREMENT,
+                      `key` varchar(45) DEFAULT NULL,
+                      PRIMARY KEY (`id`)
+                    ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+                    """.trimIndent()
+                )
+            }
+        }
+    }
 }

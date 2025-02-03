@@ -4,21 +4,12 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="cfd0ce99-2f6e-41ba-9ff7-fa2da55a18b5" name="Changes" comment="set it to use gui instead of cli">
-      <change afterPath="$PROJECT_DIR$/src/main/kotlin/CreateGoalController.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/kotlin/SavingsController.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/kotlin/ShowSavingsAccountsController.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/create_goal.fxml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/savings.fxml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/show_savings_accounts.fxml" afterDir="false" />
+    <list default="true" id="cfd0ce99-2f6e-41ba-9ff7-fa2da55a18b5" name="Changes" comment="added savings pages">
+      <change beforePath="$PROJECT_DIR$/.idea/sqldialects.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/sqldialects.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/DepositWithdrawController.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/DepositWithdrawController.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/HomeController.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/HomeController.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/DatabaseHelper.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/DatabaseHelper.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/kotlin/Main.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/Main.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/SavingsTracker.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/SavingsTracker.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/change_pin_popup.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/change_pin_popup.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/deposit_withdraw.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/deposit_withdraw.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/home.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/home.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/styles.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/styles.css" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -265,7 +256,8 @@
       <workItem from="1738239667616" duration="18597000" />
       <workItem from="1738317539672" duration="685000" />
       <workItem from="1738319779716" duration="15419000" />
-      <workItem from="1738354111266" duration="6963000" />
+      <workItem from="1738354111266" duration="7983000" />
+      <workItem from="1738505264330" duration="4283000" />
     </task>
     <task id="LOCAL-00001" summary="Personal Finance Tracker">
       <option name="closed" value="true" />
@@ -403,7 +395,23 @@
       <option name="project" value="LOCAL" />
       <updated>1738334721477</updated>
     </task>
-    <option name="localTasksCounter" value="18" />
+    <task id="LOCAL-00018" summary="added savings pages">
+      <option name="closed" value="true" />
+      <created>1738409414672</created>
+      <option name="number" value="00018" />
+      <option name="presentableId" value="LOCAL-00018" />
+      <option name="project" value="LOCAL" />
+      <updated>1738409414672</updated>
+    </task>
+    <task id="LOCAL-00019" summary="added savings pages">
+      <option name="closed" value="true" />
+      <created>1738409458326</created>
+      <option name="number" value="00019" />
+      <option name="presentableId" value="LOCAL-00019" />
+      <option name="project" value="LOCAL" />
+      <updated>1738409458326</updated>
+    </task>
+    <option name="localTasksCounter" value="20" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -414,6 +422,7 @@
     <MESSAGE value="Personal Finance Tracker" />
     <MESSAGE value="set it to use mysql instead of csv and txt files" />
     <MESSAGE value="set it to use gui instead of cli" />
-    <option name="LAST_COMMIT_MESSAGE" value="set it to use gui instead of cli" />
+    <MESSAGE value="added savings pages" />
+    <option name="LAST_COMMIT_MESSAGE" value="added savings pages" />
   </component>
 </project>

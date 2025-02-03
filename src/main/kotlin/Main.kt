@@ -20,8 +20,8 @@ fun printBankingMenu() {
     println("\nWelcome to the Banking Application!")
     println("1. Log In to Account") // done
     println("2. View Account")
-    println("3. Transact Money")
-    println("4. Savings Account")
+    println("3. Transact Money") // done
+    println("4. Savings Account") // done
     println("5. Change Pin") // done
     println("6. Log Out") // done
     println("7. Add Bank Account") // done
@@ -237,7 +237,7 @@ fun printTrackerMenu() {
     println("1. Deposit") // done
     println("2. Withdraw") // done
     println("3. Transfer Money") // done
-    println("4. View Transactions")
+    println("4. View Transactions") // done
     println("5. Export Transactions") // done
     println("6. Back")
     println("Enter your choice:")
@@ -350,7 +350,7 @@ fun exportTransactions(tracker: FinanceTracker, bankingTracker: BankingTracker, 
 fun printSavingsMenu() {
     println("\nWelcome to the Savings Menu!")
     println("1. Create Savings Goal") // done
-    println("2. View Savings Goals")
+    println("2. View Savings Goals") // done
     println("3. Deposit into Savings") // done
     println("4. Withdraw from Savings") // done
     println("5. Back") // done
