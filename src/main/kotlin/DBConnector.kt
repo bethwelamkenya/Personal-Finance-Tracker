@@ -181,6 +181,28 @@ class DBConnector {
         return savingsGoals
     }
 
+    fun getSavingsGoal(goalId: Int): SavingsGoal? {
+        val sql = "SELECT * FROM savings_accounts WHERE id = ?"
+//        val savingsGoals = mutableListOf<SavingsGoal>()
+        DatabaseHelper.getConnection().use { connection ->
+            connection.prepareStatement(sql).use { stmt ->
+                stmt.setInt(1, goalId)
+                stmt.executeQuery().use { rs ->
+                    return if (rs.next()) {
+                        SavingsGoal(
+                            id = rs.getInt("id"),
+                            accountNumber = rs.getString("account_number"),
+                            goalName = rs.getString("goal_name"),
+                            targetAmount = rs.getDouble("target_amount"),
+                            savedAmount = rs.getDouble("saved_amount")
+                        )
+                    } else null
+                }
+            }
+        }
+//        return savingsGoals
+    }
+
     fun depositToSavings(accountNumber: String, goalId: Int, amount: Double): Boolean {
         val sql = "UPDATE savings_accounts SET saved_amount = saved_amount + ? WHERE id = ? AND account_number = ?"
         DatabaseHelper.getConnection().use { connection ->

@@ -10,4 +10,5 @@ class AppDependencies {
     val savingsTracker = SavingsTracker()
     val encryptionHelper = EncryptionHelper()
     lateinit var key: Key // Initialize this in MainApp
+    var darkMode = false
 }

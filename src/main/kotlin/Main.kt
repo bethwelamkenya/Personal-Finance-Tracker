@@ -1,97 +1,279 @@
 package org.example
 
-import java.security.Key
 import kotlin.system.exitProcess
 
+val tracker = FinanceTracker()
+val bankingTracker = BankingTracker()
+val dbConnector = DBConnector()
+val savingsTracker = SavingsTracker()
+val encryptionHelper = EncryptionHelper()
+
+// 1. Generate a new AES key (you can store it securely in your app)
+val key = encryptionHelper.getKeyFromString(dbConnector.getSecretKey(1)!!)
+
 fun main() {
-    val tracker = FinanceTracker()
-    val bankingTracker = BankingTracker()
-    val dbConnector = DBConnector()
-    val savingsTracker = SavingsTracker()
-    val encryptionHelper = EncryptionHelper()
-
-    // 1. Generate a new AES key (you can store it securely in your app)
-    val key = encryptionHelper.getKeyFromString(dbConnector.getSecretKey(1)!!)
     println("Personal Finance Tracker")
-    bankingMenu(tracker, bankingTracker, dbConnector, savingsTracker, encryptionHelper, key)
+    startCLI()
+
 }
 
-fun printBankingMenu() {
-    println("\nWelcome to the Banking Application!")
-    println("1. Log In to Account") // done
-    println("2. View Account")
-    println("3. Transact Money") // done
-    println("4. Savings Account") // done
-    println("5. Change Pin") // done
-    println("6. Log Out") // done
-    println("7. Add Bank Account") // done
-    println("8. Delete Bank Account") // done
-    println("9. Exit") // done
-    println("Enter your choice:")
+fun parseCommand(input: String): Pair<String, List<String>> {
+    val parts = input.trim().split("\\s+".toRegex())
+    return if (parts.isEmpty()) {
+        Pair("", emptyList())
+    } else {
+        Pair(parts[0].lowercase(), parts.drop(1))
+    }
 }
 
-fun bankingMenu(
-    tracker: FinanceTracker,
-    bankingTracker: BankingTracker,
-    dbConnector: DBConnector,
-    savingsTracker: SavingsTracker,
-    encryptionHelper: EncryptionHelper,
-    key: Key
-) {
+fun startCLI() {
+    var isRunning = true
     val inactivityLimit = 5 * 60 * 1000 // 5 minutes
-    while (true) {
+
+    println("Welcome to the Personal Finance Tracker CLI!")
+    println("Type 'help' for a list of commands.")
+
+    while (isRunning) {
         if (System.currentTimeMillis() - bankingTracker.lastActive > inactivityLimit) {
             println("Session expired due to inactivity.")
             bankingTracker.logOut()
-//            return
         }
+        print("> ")
+        val input = readlnOrNull() ?: ""
+        val (command, args) = parseCommand(input)
 
-        printBankingMenu()
-        val choice = readlnOrNull()?.toIntOrNull()
-        bankingTracker.updateLastActive()
-        when (choice) {
-            1 -> logInAccount(bankingTracker, dbConnector, encryptionHelper, key)
-            2 -> viewAccount(bankingTracker, encryptionHelper, key)
-            3 -> enterTrackerMenu(tracker, bankingTracker, dbConnector, encryptionHelper, key)
-            4 -> enterSavingsMenu(tracker, bankingTracker, dbConnector, savingsTracker)
-            5 -> changePin(bankingTracker, dbConnector, encryptionHelper, key)
-            6 -> logOut(bankingTracker)
-            7 -> addBankAccount(bankingTracker, dbConnector, encryptionHelper, key)
-            8 -> deleteBankAccount(tracker, bankingTracker, dbConnector)
-            9 -> exitProcess(0)
+        when (command) {
+            "login" -> handleLogin(args)
+            "deposit" -> handleDeposit(args)
+            "withdraw" -> handleWithdraw(args)
+            "deposit-savings" -> handleDepositSavings(args)
+            "withdraw-savings" -> handleWithdrawSavings(args)
+            "view-transactions" -> handleViewTransactions()
+            "export-transactions" -> handleExportTransactions()
+            "transfer" -> handleTransfer(args)
+            "view-account" -> handleViewAccount()
+            "change-pin" -> handleChangePin()
+            "create-savings-goal" -> handleCreateSavingsGoal(args)
+            "view-savings-goals" -> handleViewSavingsGoals()
+            "create-account" -> handleCreateAccount()
+            "delete-account" -> handleDeleteAccount()
+            "logout" -> handleLogout()
+            "exit" -> {
+                println("Exiting...")
+                isRunning = false
+            }
 
-            else -> println("Invalid choice. Please try again.")
+            "help" -> printHelp()
+            "use-menu" -> handleUseMenu()
+            else -> println("Unknown command. Type 'help' for a list of commands.")
         }
     }
 }
 
-fun logInAccount(
-    bankingTracker: BankingTracker,
-    dbConnector: DBConnector,
-    encryptionHelper: EncryptionHelper,
-    key: Key
-) {
-    print("Enter your account number: ")
-    val accountNumber = readlnOrNull()
-    print("Enter your PIN: ")
-    val pin = readlnOrNull()
-    if (accountNumber != null && pin != null) {
-        if (bankingTracker.logIn(
-                encryptionHelper.encryptText(accountNumber, key),
-                encryptionHelper.encryptText(pin, key),
-                dbConnector
-            )
-        ) {
-            println("Login successful.")
-        } else {
-            println("Invalid account number or PIN.")
-        }
+fun printHelp() {
+    println(
+        """
+        Available Commands:
+        - login <accountNumber> <pin>                     : Log in to your account
+        - deposit <amount> [description]                  : Deposit money
+        - withdraw <amount> [description]                 : Withdraw money
+        - deposit-savings <amount> <goalId> [description] : Deposit money into savings
+        - withdraw-savings <amount> <goalId> [description]: Withdraw money from savings
+        - view-transactions                               : View transaction history
+        - export-transactions                             : Export Transactions history
+        - transfer <amount> <toAccount>                   : Transfer money to another account
+        - view-account                                    : View current account details
+        - change-pin                                      : Change pin of the current account
+        - logout                                          : Log out of the current account
+        - create-savings-goal <goalName> <targetAmount>   : Log out of the current account
+        - view-savings-goals                              : Log out of the current account
+        - create-account                                  : Create an account
+        - delete-account                                  : Delete the current account
+        - exit                                            : Exit the application
+        - help                                            : Show this help message
+        - use-menu                                        : Use Menu-Based CLI
+    """.trimIndent()
+    )
+}
+
+fun handleLogin(args: List<String>) {
+    if (args.size != 2) {
+        println("Usage: login <accountNumber> <pin>")
+        return
+    }
+    val accountNumber = args[0]
+    val pin = args[1]
+    val loggedIn = bankingTracker.logIn(
+        encryptionHelper.encryptText(accountNumber, key),
+        encryptionHelper.encryptText(pin, key),
+        dbConnector
+    )
+    if (loggedIn) {
+        println(
+            "Logged in to account: ${
+                encryptionHelper.decryptText(
+                    bankingTracker.getActiveAccount()!!.getAccountNumber(), key
+                )
+            }"
+        )
     } else {
-        println("Invalid input. Please try again.")
+        println("Login failed.")
     }
 }
 
-fun changePin(bankingTracker: BankingTracker, dbConnector: DBConnector, encryptionHelper: EncryptionHelper, key: Key) {
+fun handleDeposit(args: List<String>) {
+    if (bankingTracker.getActiveAccount() == null) {
+        println("Please log in first.")
+        return
+    }
+    if (args.isEmpty()) {
+        println("Usage: deposit <amount> [description]")
+        return
+    }
+    val amount = args[0].toDoubleOrNull()
+    if (amount == null || amount <= 0) {
+        println("Invalid amount.")
+        return
+    }
+    val description = args.getOrNull(1) ?: "Deposit"
+    bankingTracker.deposit(amount, description, tracker, dbConnector)
+    println("Deposited $$amount. New balance: $${bankingTracker.getActiveAccount()!!.getBalance()}")
+}
+
+fun handleWithdraw(args: List<String>) {
+    if (bankingTracker.getActiveAccount() == null) {
+        println("Please log in first.")
+        return
+    }
+    if (args.isEmpty()) {
+        println("Usage: withdraw <amount> [description]")
+        return
+    }
+    val amount = args[0].toDoubleOrNull()
+    if (amount == null || amount <= 0) {
+        println("Invalid amount.")
+        return
+    }
+    val description = args.getOrNull(1) ?: "Withdraw"
+    bankingTracker.withdraw(amount, description, tracker, dbConnector)
+    println("Withdrew $$amount. New balance: $${bankingTracker.getActiveAccount()!!.getBalance()}")
+}
+
+fun handleDepositSavings(args: List<String>) {
+    if (bankingTracker.getActiveAccount() == null) {
+        println("Please log in first.")
+        return
+    }
+    if (args.size < 2) {
+        println("Usage: deposit-savings <amount> <goalId> [description]")
+        return
+    }
+    val amount = args[0].toDoubleOrNull()
+    if (amount == null || amount <= 0) {
+        println("Invalid amount.")
+        return
+    }
+    val goalId = args[0].toIntOrNull()
+    if (goalId == null) {
+        println("Invalid goal Id.")
+        return
+    }
+    val description = args.getOrNull(2) ?: "Deposit Savings"
+    savingsTracker.depositIntoSavings(bankingTracker, goalId, amount, tracker, dbConnector, description)
+    println(
+        "Deposited $$amount into saving account. New bank balance: $${
+            bankingTracker.getActiveAccount()!!.getBalance()
+        }"
+    )
+}
+
+fun handleWithdrawSavings(args: List<String>) {
+    if (bankingTracker.getActiveAccount() == null) {
+        println("Please log in first.")
+        return
+    }
+    if (args.size < 2) {
+        println("Usage: withdraw-savings <amount> <goalId> [description]")
+        return
+    }
+    val amount = args[0].toDoubleOrNull()
+    if (amount == null || amount <= 0) {
+        println("Invalid amount.")
+        return
+    }
+    val goalId = args[0].toIntOrNull()
+    if (goalId == null) {
+        println("Invalid goal Id.")
+        return
+    }
+    val description = args.getOrNull(2) ?: "Deposit Savings"
+    savingsTracker.withdrawFromSavings(bankingTracker, goalId, amount, tracker, dbConnector, description)
+    println(
+        "Withdrew $$amount from saving account. New bank balance: $${
+            bankingTracker.getActiveAccount()!!.getBalance()
+        }"
+    )
+}
+
+fun handleViewTransactions() {
+    val account = bankingTracker.getActiveAccount()
+    if (account == null) {
+        println("No active account. Please log in first.")
+        return
+    }
+
+    val transactions = tracker.viewTransactionsForAccount(account, dbConnector)
+
+    println("\n=== Transactions ===")
+    tracker.viewTransactionsForAccount(account, dbConnector)
+
+    println("\n=== Balance ===")
+    val balance = account.getBalance()
+    println("| Current Balance: ${String.format("%.2f", balance).padStart(15)} |")
+    println("|----------------------------------|")
+}
+
+fun handleLogout() {
+    bankingTracker.logOut()
+    println("Logged out.")
+}
+
+fun handleTransfer(args: List<String>) {
+    if (bankingTracker.getActiveAccount() == null) {
+        println("Please log in first.")
+        return
+    }
+    if (args.size < 2) {
+        println("Usage: transfer <amount> <toAccount>")
+        return
+    }
+
+    val amount = args[0].toDoubleOrNull()
+    if (amount == null || amount <= 0) {
+        println("Invalid amount.")
+        return
+    }
+
+    val toAccount = args[1]
+    val recipientAccount = dbConnector.getBankAccount(encryptionHelper.encryptText(toAccount, key))
+
+    if (recipientAccount == null) {
+        println("Recipient account not found.")
+        return
+    }
+
+    if (bankingTracker.getActiveAccount()!!.getBalance() < amount) {
+        println("Insufficient balance.")
+        return
+    }
+    bankingTracker.transferFunds(recipientAccount, amount, dbConnector, tracker)
+}
+
+fun handleViewAccount() {
+    bankingTracker.viewAccount(encryptionHelper, key)
+}
+
+fun handleChangePin() {
     val account = bankingTracker.getActiveAccount()
     if (account == null) {
         println("No active account. Please log in first.")
@@ -100,7 +282,12 @@ fun changePin(bankingTracker: BankingTracker, dbConnector: DBConnector, encrypti
 
     print("Enter current PIN: ")
     val currentPin = readlnOrNull()
-    if (!bankingTracker.logIn(account.getAccountNumber(), encryptionHelper.encryptText(currentPin!!, key), dbConnector)) {
+    if (!bankingTracker.logIn(
+            account.getAccountNumber(),
+            encryptionHelper.encryptText(currentPin!!, key),
+            dbConnector
+        )
+    ) {
         println("Incorrect PIN. PIN change failed.")
         return
     }
@@ -125,20 +312,7 @@ fun changePin(bankingTracker: BankingTracker, dbConnector: DBConnector, encrypti
     }
 }
 
-fun viewAccount(bankingTracker: BankingTracker, encryptionHelper: EncryptionHelper, key: Key) {
-    bankingTracker.viewAccount(encryptionHelper, key)
-}
-
-fun isStrongPin(pin: String): Boolean {
-    return pin.length >= 4 && pin.any { it.isDigit() }
-}
-
-fun addBankAccount(
-    bankingTracker: BankingTracker,
-    dbConnector: DBConnector,
-    encryptionHelper: EncryptionHelper,
-    key: Key
-) {
+fun handleCreateAccount() {
     var run = true
     var running = true
     while (running) {
@@ -178,11 +352,16 @@ fun addBankAccount(
     }
 }
 
-fun deleteBankAccount(
-    tracker: FinanceTracker,
-    bankingTracker: BankingTracker,
-    dbConnector: DBConnector
-) {
+fun handleExportTransactions() {
+    val account = bankingTracker.getActiveAccount()
+    if (account == null) {
+        println("No active account. Please log in first.")
+        return
+    }
+    tracker.exportTransactionsForAccount(account, dbConnector, encryptionHelper, key)
+}
+
+fun handleDeleteAccount() {
     val account = bankingTracker.getActiveAccount()
     if (account == null) {
         println("No active account. Please log in first.")
@@ -198,79 +377,138 @@ fun deleteBankAccount(
     }
 }
 
-fun enterTrackerMenu(
-    tracker: FinanceTracker,
-    bankingTracker: BankingTracker,
-    dbConnector: DBConnector,
-    encryptionHelper: EncryptionHelper,
-    key: Key
-) {
-    if (bankingTracker.getActiveAccount() == null) {
+fun handleCreateSavingsGoal(args: List<String>) {
+    val account = bankingTracker.getActiveAccount()
+    if (account == null) {
         println("No active account. Please log in first.")
         return
-    } else {
-        trackerMenu(tracker, bankingTracker, dbConnector, encryptionHelper, key)
+    }
+
+    if (args.size < 2) {
+        println("Usage: create-savings-goal <goalName> <targetAmount>")
+        return
+    }
+    val targetAmount = args[1].toDoubleOrNull()
+    if (targetAmount == null || targetAmount <= 0) {
+        println("Invalid amount.")
+        return
+    }
+    savingsTracker.createSavingsGoal(bankingTracker, args[0], targetAmount, dbConnector)
+}
+
+fun handleViewSavingsGoals() {
+    val account = bankingTracker.getActiveAccount()
+    if (account == null) {
+        println("No active account. Please log in first.")
+        return
+    }
+    savingsTracker.viewSavingsGoals(bankingTracker, dbConnector)
+}
+
+fun printBankingMenu() {
+    println("\nWelcome to the Banking Application!")
+    println("1. Log In to Account") // done, done
+    println("2. View Account") //, done
+    println("3. Transact Money") // done, done
+    println("4. Savings Account") // done, done
+    println("5. Change Pin") // done, done
+    println("6. Log Out") // done, done
+    println("7. Create Bank Account") // done, done
+    println("8. Delete Bank Account") // done, done
+    println("9. Use Command-Based CLI") // done, done
+    println("10. Exit") // done, done
+    println("Enter your choice:")
+}
+
+fun handleUseMenu() {
+    while (true) {
+        printBankingMenu()
+        val choice = readlnOrNull()?.toIntOrNull()
+        bankingTracker.updateLastActive()
+        when (choice) {
+            1 -> logInAccount()
+            2 -> handleViewAccount()
+            3 -> {
+                if (bankingTracker.getActiveAccount() == null) {
+                    println("No active account. Please log in first.")
+                } else {
+                    trackerMenu()
+                }
+            }
+
+            4 -> {
+                if (bankingTracker.getActiveAccount() == null) {
+                    println("No active account. Please log in first.")
+                } else {
+                    savingsMenu()
+                }
+            }
+
+            5 -> handleChangePin()
+            6 -> handleLogout()
+            7 -> handleCreateAccount()
+            8 -> handleDeleteAccount()
+            9 -> startCLI()
+            10 -> exitProcess(0)
+            else -> println("Invalid choice. Please try again.")
+        }
     }
 }
 
-fun enterSavingsMenu(
-    tracker: FinanceTracker,
-    bankingTracker: BankingTracker,
-    dbConnector: DBConnector,
-    savingsTracker: SavingsTracker
-) {
-    if (bankingTracker.getActiveAccount() == null) {
-        println("No active account. Please log in first.")
-        return
+fun logInAccount() {
+    print("Enter your account number: ")
+    val accountNumber = readlnOrNull()
+    print("Enter your PIN: ")
+    val pin = readlnOrNull()
+    if (accountNumber != null && pin != null) {
+        if (bankingTracker.logIn(
+                encryptionHelper.encryptText(accountNumber, key),
+                encryptionHelper.encryptText(pin, key),
+                dbConnector
+            )
+        ) {
+            println("Login successful.")
+        } else {
+            println("Invalid account number or PIN.")
+        }
     } else {
-        savingsMenu(tracker, bankingTracker, dbConnector, savingsTracker)
+        println("Invalid input. Please try again.")
     }
 }
 
-fun logOut(bankingTracker: BankingTracker) {
-    bankingTracker.logOut()
-    println("Logged out.")
+fun isStrongPin(pin: String): Boolean {
+    return pin.length >= 4 && pin.any { it.isDigit() }
 }
 
 fun printTrackerMenu() {
     println("\nWelcome to the Personal Finance Tracker!")
-    println("1. Deposit") // done
-    println("2. Withdraw") // done
-    println("3. Transfer Money") // done
-    println("4. View Transactions") // done
-    println("5. Export Transactions") // done
+    println("1. Deposit") // done, done
+    println("2. Withdraw") // done, done
+    println("3. Transfer Money") // done, done
+    println("4. View Transactions") // done, done
+    println("5. Export Transactions") // done, done
     println("6. Back")
     println("Enter your choice:")
 }
 
-fun trackerMenu(
-    tracker: FinanceTracker,
-    bankingTracker: BankingTracker,
-    dbConnector: DBConnector,
-    encryptionHelper: EncryptionHelper,
-    key: Key
-) {
+fun trackerMenu() {
     var run = true
     while (run) {
         printTrackerMenu()
         val choice = readlnOrNull()?.toIntOrNull()
         when (choice) {
-            1 -> deposit(tracker, bankingTracker, dbConnector)
-            2 -> withdraw(tracker, bankingTracker, dbConnector)
-            3 -> transferMoney(tracker, bankingTracker, dbConnector, encryptionHelper, key)
-            4 -> viewTransactions(tracker, bankingTracker, dbConnector)
-            5 -> exportTransactions(tracker, bankingTracker, dbConnector, encryptionHelper, key)
+            1 -> deposit()
+            2 -> withdraw()
+            3 -> transferMoney()
+            4 -> handleViewTransactions()
+            5 -> handleExportTransactions()
             6 -> run = false
             else -> println("Invalid choice. Please try again.")
         }
     }
 }
 
-fun deposit(
-    tracker: FinanceTracker,
-    bankingTracker: BankingTracker,
-    dbConnector: DBConnector
-) {
+fun deposit() {
     print("Enter the amount to deposit: ")
     val amount = readlnOrNull()?.toDoubleOrNull()
     print("Description: ")
@@ -282,11 +520,7 @@ fun deposit(
     }
 }
 
-fun withdraw(
-    tracker: FinanceTracker,
-    bankingTracker: BankingTracker,
-    dbConnector: DBConnector
-) {
+fun withdraw() {
     print("Enter the amount to withdraw: ")
     val amount = readlnOrNull()?.toDoubleOrNull()
     print("Description: ")
@@ -298,13 +532,7 @@ fun withdraw(
     }
 }
 
-fun transferMoney(
-    tracker: FinanceTracker,
-    bankingTracker: BankingTracker,
-    dbConnector: DBConnector,
-    encryptionHelper: EncryptionHelper,
-    key: Key
-) {
+fun transferMoney() {
     val senderAccount = bankingTracker.getActiveAccount()
     if (senderAccount == null) {
         println("No active account. Please log in first.")
@@ -330,55 +558,33 @@ fun transferMoney(
     bankingTracker.transferFunds(recipientAccount, amount, dbConnector, tracker)
 }
 
-fun viewTransactions(tracker: FinanceTracker, bankingTracker: BankingTracker, dbConnector: DBConnector) {
-    println("\n=== Transactions ===")
-    bankingTracker.getActiveAccount()?.let { tracker.getTransactionsForAccount(it, dbConnector) }
-
-    println("\n=== Balance ===") //
-    println("\nCurrent Balance: $${bankingTracker.getActiveAccount()?.getBalance()}")
-}
-
-fun exportTransactions(tracker: FinanceTracker, bankingTracker: BankingTracker, dbConnector: DBConnector, encryptionHelper: EncryptionHelper, key: Key) {
-    val account = bankingTracker.getActiveAccount()
-    if (account == null) {
-        println("No active account. Please log in first.")
-        return
-    }
-    tracker.exportTransactionsForAccount(account, dbConnector, encryptionHelper, key)
-}
-
 fun printSavingsMenu() {
     println("\nWelcome to the Savings Menu!")
-    println("1. Create Savings Goal") // done
-    println("2. View Savings Goals") // done
-    println("3. Deposit into Savings") // done
-    println("4. Withdraw from Savings") // done
-    println("5. Back") // done
+    println("1. Create Savings Goal") // done, done
+    println("2. View Savings Goals") // done, done
+    println("3. Deposit into Savings") // done, done
+    println("4. Withdraw from Savings") // done, done
+    println("5. Back") // done, done
     println("Enter your choice:")
 }
 
-fun savingsMenu(
-    tracker: FinanceTracker,
-    bankingTracker: BankingTracker,
-    dbConnector: DBConnector,
-    savingsTracker: SavingsTracker
-) {
+fun savingsMenu() {
     var run = true
     while (run) {
         printSavingsMenu()
         val choice = readlnOrNull()?.toIntOrNull()
         when (choice) {
-            1 -> createSavingsGoal(bankingTracker, dbConnector, savingsTracker)
-            2 -> viewSavingsGoals(bankingTracker, dbConnector, savingsTracker)
-            3 -> depositIntoSavings(tracker, bankingTracker, dbConnector, savingsTracker)
-            4 -> withdrawFromSavings(tracker, bankingTracker, dbConnector, savingsTracker)
+            1 -> createSavingsGoal()
+            2 -> handleViewSavingsGoals()
+            3 -> depositIntoSavings()
+            4 -> withdrawFromSavings()
             5 -> run = false
             else -> println("Invalid choice. Please try again.")
         }
     }
 }
 
-fun createSavingsGoal(bankingTracker: BankingTracker, dbConnector: DBConnector, savingsTracker: SavingsTracker) {
+fun createSavingsGoal() {
     print("Enter savings goal name: ")
     val goalName = readlnOrNull()
     print("Enter target amount: ")
@@ -391,16 +597,7 @@ fun createSavingsGoal(bankingTracker: BankingTracker, dbConnector: DBConnector, 
     }
 }
 
-fun viewSavingsGoals(bankingTracker: BankingTracker, dbConnector: DBConnector, savingsTracker: SavingsTracker) {
-    savingsTracker.viewSavingsGoals(bankingTracker, dbConnector)
-}
-
-fun depositIntoSavings(
-    tracker: FinanceTracker,
-    bankingTracker: BankingTracker,
-    dbConnector: DBConnector,
-    savingsTracker: SavingsTracker
-) {
+fun depositIntoSavings() {
     print("Enter savings goal ID: ")
     val goalId = readlnOrNull()?.toIntOrNull()
     print("Enter amount to deposit: ")
@@ -413,12 +610,7 @@ fun depositIntoSavings(
     }
 }
 
-fun withdrawFromSavings(
-    tracker: FinanceTracker,
-    bankingTracker: BankingTracker,
-    dbConnector: DBConnector,
-    savingsTracker: SavingsTracker
-) {
+fun withdrawFromSavings() {
     print("Enter savings goal ID: ")
     val goalId = readlnOrNull()?.toIntOrNull()
     print("Enter amount to withdraw: ")

@@ -24,13 +24,24 @@ class SavingsTracker {
         val savingsGoals = dbConnector.getSavingsGoals(accountNumber)
 
         if (savingsGoals.isEmpty()) {
-            println("No savings goals found.")
+            println("| No savings goals found. Add one to get started!     |")
+            println("|-----------------------------------------------------|")
             return
         }
 
         println("\n=== Your Savings Goals ===")
+        println("| ID  | Goal                | Target     | Saved     |")
+        println("|-----|---------------------|------------|-----------|")
+
         for (goal in savingsGoals) {
-            println("ID: ${goal.id}, Goal: ${goal.goalName}, Target: ${goal.targetAmount}, Saved: ${goal.savedAmount}")
+            val formattedRow = String.format(
+                "| %-4d| %-20s| %10.2f | %9.2f |",
+                goal.id,
+                goal.goalName.take(20),  // Truncate long names
+                goal.targetAmount,
+                goal.savedAmount
+            )
+            println(formattedRow)
         }
     }
 
